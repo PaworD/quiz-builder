@@ -1,32 +1,49 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+      <QuizBuilder :blocks="mockBlocks" @onSave="onSave" />
   </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+import { v4 as uuidv4 } from 'uuid'
 
-#nav {
-  padding: 30px;
-}
+import { QuizBuilder } from '@/builder/QuizBuilder'
+import { IBlock } from '@/builder/modules/Block'
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+/**
+ *
+ * ...
+ *
+ * @author Javlon Khalimjonov <khalimjanov2000@gmail.com>
+ */
+@Component({ name: 'App', components: { QuizBuilder }})
+export class App extends Vue {
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+  public get mockBlocks (): IBlock[] {
+    return [
+      // {
+      //   id: uuidv4(),
+      //   version: 'basic',
+      //   title: 'Basic Block',
+      //   order: 0,
+      //   points: 0,
+      //   content: {
+      //     question: 'This is question from API',
+      //     answer: 'This is answer from API'
+      //   }
+      // },
+    ]
+  }
+  public onSave (blocks: any): void {
+    console.log(blocks)
+  }
 }
+export default App
+</script>
+
+<style lang="scss">
+ * {
+   //
+ }
 </style>

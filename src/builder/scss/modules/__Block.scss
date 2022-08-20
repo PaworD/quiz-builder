@@ -1,0 +1,85 @@
+.Block {
+  padding: 1rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+  gap: .4rem;
+
+  width: 100%;
+
+  position: relative;
+
+  background: #fff;
+
+  border-radius: 6px;
+  border: 1px solid silver;
+
+  transition: border-width 1s ease-in;
+
+  &:hover {
+    box-shadow: 0 2px 3px 1px #ccc;
+
+    .Block__actions {
+      display: block;
+    }
+  }
+
+  &.--selected {
+    box-shadow: 0 0 0 2px #000000;
+
+    .Block__actions {
+      display: block;
+    }
+  }
+
+  &__actions {
+    position: absolute;
+    right: -10px;
+
+    display: none;
+
+    button {
+      width: 20px;
+      height: 20px;
+
+      outline: none;
+      border: none;
+
+      border-radius: 5px;
+
+      background-color: gray;
+
+      cursor: pointer;
+    }
+  }
+
+}
+
+.essentials {
+  &__input {
+    outline: none;
+
+    padding: .3rem .5rem;
+
+    border: 1px solid silver;
+  }
+
+  &__group {
+    display: flex;
+    flex-flow: row;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    span {
+      font-size: 10px;
+      text-transform: uppercase;
+
+      display: block;
+    }
+  }
+}
