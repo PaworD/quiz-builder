@@ -27,3 +27,4 @@ export class AbstractBlockForm<Block extends IBlock> extends Vue {
     throw new Error('Method must be overridden!')
   }
 }
+export default AbstractBlockForm

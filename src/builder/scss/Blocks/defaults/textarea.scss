@@ -1,0 +1,15 @@
+.QTextarea {
+  width: 100%;
+  height: auto;
+
+  padding: .4rem .6rem;
+
+  border-radius: 0;
+  border: 1px solid #cccccc;
+
+  resize: none;
+
+  &:focus, &:active {
+    outline: 1px solid #ccc;
+  }
+}

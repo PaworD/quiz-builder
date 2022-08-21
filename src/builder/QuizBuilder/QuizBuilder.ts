@@ -1,15 +1,14 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 
-import { IBlock } from '@/builder/modules/Block/Block.contracts'
-
 import { availableBlocks } from '../defaults'
 import { BlockShelf, BlockShelfItemsRegistry } from '../BlockShelf'
 import { BlockEditor } from '../BlockEditor/BlockEditor'
-import { Pole } from '../modules'
+import { Constructor, IBlock, Renderer, Toolbar } from '../modules'
+import { QuizBuilderMode } from './QuizBuilder.contracts'
 
 @Component<QuizBuilder>({
   name: 'QuizBuilder',
-  components: { Pole ,BlockShelf, BlockEditor },
+  components: { Constructor ,BlockShelf, BlockEditor, Toolbar, Renderer },
   created (): void {
     this.qblocks = this.blocks.map(block =>({
       ...block,
@@ -26,8 +25,13 @@ import { Pole } from '../modules'
       <!-- Shelf of blocks -->
       <BlockShelf v-if="showBlockShelf" :itemsRegistry="blockCollection" :blocks="qblocks" />
       
-      <!-- Pole where blocks are rendered -->
-      <Pole :blocks.sync="qblocks" @onSave="handlePoleOnSave" />
+      <div class="QuizBuilder__workspace__area">
+        <Toolbar :quizCount="quizCount" :pointsCount="pointsCounts" :activeMode.sync="activeMode"/>
+
+        <!-- Constructor / Renderer of quizzes -->
+        <Constructor v-show="activeMode === mode.Edit" :blocks.sync="qblocks" @onSave="handlePoleOnSave" />
+        <Renderer v-show="activeMode === mode.View" :blocks.sync="qblocks" />
+      </div>
 
       <!-- Editor of block -->
       <BlockEditor :block.sync="selectedBlock" />
@@ -55,6 +59,10 @@ export class QuizBuilder extends Vue {
 
   public qblocks: IBlock[] = []
 
+  public readonly mode = QuizBuilderMode
+
+  public activeMode: QuizBuilderMode = QuizBuilderMode.Edit
+
   /**
    * Collection of default and custom blocks to be passed to shelf.
    */
@@ -63,6 +71,10 @@ export class QuizBuilder extends Vue {
       ...availableBlocks,
       ...this.blockShelfItems
     }
+  }
+
+  public get quizCount (): number {
+    return this.qblocks.length
   }
 
   /**
@@ -78,6 +90,12 @@ export class QuizBuilder extends Vue {
    */
   public get hasSelectedBlock (): boolean {
     return this.qblocks.some((block: IBlock) => block.selected)
+  }
+
+  public get pointsCounts (): number {
+    return this.qblocks.reduce((acc, nextBlock) => {
+      return acc + Number(nextBlock.points)
+    }, 0)
   }
 
   /**

@@ -22,17 +22,17 @@ export class App extends Vue {
 
   public get mockBlocks (): IBlock[] {
     return [
-      // {
-      //   id: uuidv4(),
-      //   version: 'basic',
-      //   title: 'Basic Block',
-      //   order: 0,
-      //   points: 0,
-      //   content: {
-      //     question: 'This is question from API',
-      //     answer: 'This is answer from API'
-      //   }
-      // },
+      {
+        id: uuidv4(),
+        version: 'multipleChoice',
+        title: '1',
+        order: 0,
+        points: 2,
+        content: {
+          question: 'This is question from API',
+          answer: 'A'
+        }
+      },
     ]
   }
   public onSave (blocks: any): void {

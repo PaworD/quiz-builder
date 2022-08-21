@@ -11,8 +11,8 @@ import { AnyObject } from '@/builder/helpers'
  *
  * @author Javlon Khalimjonov <khalimjanov2000@gmail.com>
  */
-@Component<Pole>({
-  name: 'Pole',
+@Component<Constructor>({
+  name: 'Constructor',
   components: { Block },
   template: `
     <div class="Pole" :class="[className]" :id="id"
@@ -24,14 +24,14 @@ import { AnyObject } from '@/builder/helpers'
     </h2>
 
     <!-- Individual Blocks -->
-      <Block v-for="(block, index) in _blocks" :key="JSON.stringify(block)" @markAsSelected="markAsSelected(block.id)"
+      <Block v-for="(block, index) in _blocks" :key="block.id" @markAsSelected="markAsSelected(block.id)"
              :version="block.version" :title="block.title" :order="block.order" :selected="block.selected"
              :id="block.id" draggable="true" @dragstart="(event) => startDrag(event, block.id)" :data-index="index"
              @onRemove="removeBlock"/>
     </div>
   `
 })
-export class Pole extends Vue {
+export class Constructor extends Vue {
   /**
    * @see PoleData._blocks
    */
@@ -48,7 +48,7 @@ export class Pole extends Vue {
    * Id for the pole, to pass as HTML attr.
    */
   public get id (): string {
-    return `pole-${uuidv4()}`
+    return `constructor-${uuidv4()}`
   }
 
   /**
@@ -146,12 +146,5 @@ export class Pole extends Vue {
       return a.order - b.order
     })
   }
-
-  /**
-   * Emits the save event.
-   */
-  public save (): void {
-    this.$emit('onSave', this._blocks)
-  }
 }
-export default Pole
+export default Constructor

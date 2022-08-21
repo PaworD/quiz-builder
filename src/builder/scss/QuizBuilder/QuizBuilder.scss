@@ -3,4 +3,10 @@
   flex-flow: row;
   align-items: center;
   justify-content: space-between;
+
+  &__workspace {
+    &__area {
+      width: 30%;
+    }
+  }
 }
