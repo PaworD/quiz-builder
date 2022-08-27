@@ -1,13 +1,14 @@
 import { Component, Prop, PropSync, Vue } from 'vue-property-decorator'
-import { DiagramIcon, EyeIcon } from '@/builder'
+
 import { QuizBuilderMode } from '@/builder/QuizBuilder'
+import { DiagramIcon, EyeIcon, SaveIcon } from '@/builder/shared/icons'
 
 /**
  * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
  */
 @Component<Toolbar>({
   name: 'Toolbar',
-  components: { EyeIcon, DiagramIcon },
+  components: { EyeIcon, DiagramIcon, SaveIcon },
   template: `
     <div class="QToolbar">
       <!-- General Information -->
@@ -24,6 +25,11 @@ import { QuizBuilderMode } from '@/builder/QuizBuilder'
       
       <!-- Actions -->
       <div class="QToolbar__actions">
+        <button class="QToolbar__actions__action"
+                @click="triggerSave">
+          <SaveIcon />
+        </button>
+        
         <button class="QToolbar__actions__action"
                 :class="{ '--active': _activeMode === mode.View }"
                 @click="changeMode(mode.View)">
@@ -52,8 +58,18 @@ export class Toolbar extends Vue {
 
   public mode = QuizBuilderMode
 
+  /**
+   * Handles mode changing of QuizBuilder
+   */
   public changeMode (mode: QuizBuilderMode): void {
     this._activeMode = mode
+  }
+
+  /**
+   * Emits @onSave event.
+   */
+  public triggerSave (): void {
+    this.$emit('onSave')
   }
 }
 

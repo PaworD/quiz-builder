@@ -1,9 +1,8 @@
+import { AnyObject, WithContent, WithId, WithOrder, WithPoints, WithType } from '@/builder/helpers'
+
 /**
  * @author Javlon Khalimjonov <khalimjanov2000@gmail.com>
  */
-import { AnyObject, WithContent, WithId, WithOrder, WithPoints, WithVersion } from '@/builder/helpers'
-import { QuizType } from '@/builder/defaults'
-
 export interface BlockData {
   /**
    * Icon to be displayed in pole.
@@ -36,9 +35,9 @@ export interface BlockData {
   title?: string
 
   /**
-   * Determines block's version
+   * Determines block's type
    */
-  version: string
+  type: string
 }
 
 /**
@@ -51,10 +50,10 @@ export interface IBlock<Content extends AnyObject = AnyObject> extends BlockData
 /**
  * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
  */
-export type Quiz<Content, Version> = (
+export type Quiz<Content, Type> = (
   WithContent<Content> &
   WithId &
   WithOrder &
   WithPoints &
-  WithVersion<Version>
+  WithType<Type>
 )

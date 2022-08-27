@@ -4,8 +4,11 @@
   align-items: center;
   justify-content: space-between;
 
+  height: 100%;
+
   &__workspace {
     &__area {
+      height: 100%;
       width: 30%;
     }
   }

@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-      <QuizBuilder :blocks="mockBlocks" @onSave="onSave" />
+  <div class="app">
+    <QuizBuilder :blocks="mockBlocks" @onSave="onSave" />
   </div>
 </template>
 
@@ -24,17 +24,19 @@ export class App extends Vue {
     return [
       {
         id: uuidv4(),
-        version: 'multipleChoice',
+        type: 'multipleChoice',
         title: '1',
         order: 0,
         points: 2,
         content: {
-          question: 'This is question from API',
+          question: 'What do you call a computer on a network that requests files from another computer?',
+          variants: ['computer', 'router', 'host'],
           answer: 'A'
         }
       },
     ]
   }
+
   public onSave (blocks: any): void {
     console.log(blocks)
   }
@@ -43,7 +45,7 @@ export default App
 </script>
 
 <style lang="scss">
- * {
-   //
+ .app {
+   height: 100vh;
  }
 </style>

@@ -20,12 +20,12 @@ import { AnyObject } from '@/builder/helpers'
     
     <!-- Fallback value -->
     <h2 v-if="!_blocks.length">
-      Drag the block from the shelf.
+      Drag the quiz from the shelf.
     </h2>
 
     <!-- Individual Blocks -->
       <Block v-for="(block, index) in _blocks" :key="block.id" @markAsSelected="markAsSelected(block.id)"
-             :version="block.version" :title="block.title" :order="block.order" :selected="block.selected"
+             :title="block.title" :order="block.order" :selected="block.selected"
              :id="block.id" draggable="true" @dragstart="(event) => startDrag(event, block.id)" :data-index="index"
              @onRemove="removeBlock"/>
     </div>

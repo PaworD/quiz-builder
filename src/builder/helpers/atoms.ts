@@ -15,8 +15,8 @@ export interface WithContent<Content> {
 /**
  * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
  */
-export interface WithVersion<Version> {
-  version: Version
+export interface WithType<Type> {
+  type: Type
 }
 
 /**
@@ -38,4 +38,14 @@ export interface WithOrder {
  */
 export interface WithPoints {
   points: number
+}
+
+/**
+ * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
+ */
+export interface HasAnswer {
+  /**
+   * Determines the possible answer to given question statement.
+   */
+  answer: string
 }

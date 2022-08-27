@@ -9,10 +9,10 @@ import { IBlock } from '@/builder'
   name: 'AbstractBlockUi'
 })
 export class AbstractBlockUi<Block extends IBlock> extends Vue {
-  @PropSync('data', { type: Object, required: true })
-  public _data!: Block['content']
+  @PropSync('content', { type: Object, required: true })
+  public _content!: Block['content']
 
   @Prop({ type: String, required: false })
-  public readonly version?: Block['version']
+  public readonly type?: Block['type']
 }
 export default AbstractBlockUi

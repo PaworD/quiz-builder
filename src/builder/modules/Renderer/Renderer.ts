@@ -12,7 +12,7 @@ import { IBlock } from '@/builder'
   template: `
     <div class="Renderer">
       <div :class="[listClassName]">
-        <component v-for="block in _blocks" :is="component(block.version)" :data.sync="block.content" :version="block.version" :key="block.id" />
+        <component v-for="block in _blocks" :is="component(block.type)" :content.sync="block.content" :type="block.type" :key="block.id" />
       </div>
     </div>
   `
@@ -30,6 +30,10 @@ export class Renderer extends Vue {
   @PropSync('blocks', { type: Array, required: true })
   public _blocks!: IBlock[]
 
+  /**
+   * Determines the applicable component to quiz's type.
+   * @param type - type of the quiz.
+   */
   public component (type: string): VueConstructor {
     return this.uiRegistry[type as QuizType]
   }

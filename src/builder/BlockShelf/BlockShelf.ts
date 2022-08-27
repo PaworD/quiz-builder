@@ -49,7 +49,7 @@ export class BlockShelf extends Vue {
     return Object.keys(this.itemsRegistry).length > 0
   }
 
-  public onItemDrag (event: DragEvent, version: string): void {
+  public onItemDrag (event: DragEvent, type: string): void {
     if (!event.dataTransfer) {
       return
     }
@@ -67,11 +67,11 @@ export class BlockShelf extends Vue {
 
     const newBlock: IBlock = {
       id: uuid(),
-      title: version.toUpperCase() + ' ' +  (order + 1),
+      title: type.toUpperCase() + ' ' +  (order + 1),
       order: order,
       content: {},
       points: 0,
-      version: version
+      type: type
     }
 
     event.dataTransfer.setData('new-block', JSON.stringify(newBlock))

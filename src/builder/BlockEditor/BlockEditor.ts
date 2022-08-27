@@ -40,9 +40,9 @@ import { IBlock } from '@/builder'
         </div>
   
         <!-- Block's content view -->
-        <span class="BlockEditor__info-stripe">BLOCK SETTINGS [{{ _block.version }}]</span>
+        <span class="BlockEditor__info-stripe">BLOCK SETTINGS [{{ _block.type }}]</span>
         <div class="BlockEditor__editor BlockEditor__editor__block-content">
-          <component :is="component" :data.sync="_block.content" :version="_block.version" :key="_block.id" />
+          <component :is="component" :data.sync="_block.content" :type="_block.type" :key="_block.id" />
         </div>
       </div>
     
@@ -71,18 +71,18 @@ export class BlockEditor extends Vue {
    * Determines component to be rendered for editing selected `Block`
    */
   public get component (): VueConstructor {
-    if (!(this._block.version in this.formRegistry)) {
-      console.error(`Could not find view for current Block! Got [${this._block.version}]`)
+    if (!(this._block.type in this.formRegistry)) {
+      console.error(`Could not find view for current Block! Got [${this._block.type}]`)
     }
 
-    return this.formRegistry[(this._block.version) as QuizType]
+    return this.formRegistry[(this._block.type) as QuizType]
   }
 
   /**
    * Determines whether block is selected & has necessary property to be edited.
    */
   public get hasBlock (): boolean {
-    return Object.prototype.hasOwnProperty.call(this._block,'version')
+    return Object.prototype.hasOwnProperty.call(this._block,'type')
   }
 }
 export default BlockEditor

@@ -3,6 +3,8 @@ import { Component, Prop, PropSync, Vue } from 'vue-property-decorator'
 import { IBlock } from '@/builder'
 
 /**
+ * Abstract block form that every `.form` component **HAS TO** extend.
+ *
  * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
  */
 @Component<AbstractBlockForm<IBlock>>({
@@ -16,12 +18,19 @@ export class AbstractBlockForm<Block extends IBlock> extends Vue {
   public _data!: Block['content']
 
   @Prop({ type: String, required: false })
-  public readonly version?: Block['version']
+  public readonly type?: Block['type']
 
+  /**
+   *
+   * @protected
+   */
   protected boot (): void {
     this._data = { ...this.createInitialContent(), ...this._data }
   }
 
+  /**
+   * Creates the initial content for quiz, so it can boot up with predefined data.
+   */
   protected createInitialContent (): Block['content'] {
     // Override
     throw new Error('Method must be overridden!')
