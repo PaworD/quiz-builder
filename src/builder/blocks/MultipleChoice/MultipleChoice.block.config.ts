@@ -8,7 +8,7 @@ export const buttonElementConfig = (): ShelfItem => ({
   type: 'button',
   title: 'Button',
   size: {
-    cols: 6,
-    rows: 12
+    cols: 1,
+    rows: 2
   }
 })
