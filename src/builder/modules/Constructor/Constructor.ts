@@ -25,7 +25,7 @@ import { AnyObject } from '@/builder/helpers'
 
     <!-- Individual Blocks -->
       <Block v-for="(block, index) in _blocks" :key="block.id" @markAsSelected="markAsSelected(block.id)"
-             :title="block.title" :order="block.order" :selected="block.selected"
+             :title="block.title" :order="block.order" :selected="block.selected" :blockSize="block.size"
              :id="block.id" draggable="true" @dragstart="(event) => startDrag(event, block.id)" :data-index="index"
              @onRemove="removeBlock"/>
     </div>
@@ -37,6 +37,9 @@ export class Constructor extends Vue {
    */
   @PropSync('blocks', { type: Array, required: true })
   public _blocks!: IBlock[]
+
+  @PropSync('containers', { type: Array, required: true })
+  public _containers!: IBlock[]
 
   /**
    * @see PoleData.className

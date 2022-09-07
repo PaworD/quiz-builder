@@ -1,5 +1,6 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { TrashIcon } from '@/builder/shared'
+import { AnyObject, BlockSize } from '@/builder'
 
 /**
  * Block component.
@@ -10,7 +11,7 @@ import { TrashIcon } from '@/builder/shared'
   name: 'Block',
   components: { TrashIcon },
   template: `
-    <div class="Block" :class="{'--selected': selected}" :id="id" @click="markAsSelected"
+    <div class="Block" :class="[{'--selected': selected}]" :style="size" :id="id" @click="markAsSelected"
          @dragstart="onDragStart" @dragleave="onDragLeave" @dragenter="onDragEnter">
     
     <div class="Block__actions">
@@ -57,11 +58,21 @@ export class Block extends Vue {
   @Prop({ type: String, required: false, default: '' })
   public readonly title?: string
 
+  @Prop({ type: Object, required: true })
+  public blockSize!: BlockSize
+
   /**
    * Determines whether block has title to render.
    */
   public get hasTitle (): boolean {
     return this.title !== null && typeof this.title !== 'undefined' && this.title.length > 0
+  }
+
+  public get size (): AnyObject {
+    return {
+      gridColumn: `span ${this.blockSize.cols}`,
+      gridRow: `span ${this.blockSize.rows}`
+    }
   }
 
   /**

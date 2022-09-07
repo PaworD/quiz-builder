@@ -8,6 +8,14 @@ export interface AnyObject {
 /**
  * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
  */
+export interface BlockSize {
+  cols: number
+  rows: number
+}
+
+/**
+ * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
+ */
 export interface WithContent<Content> {
   content: Content
 }
@@ -38,6 +46,13 @@ export interface WithOrder {
  */
 export interface WithPoints {
   points: number
+}
+
+/**
+ * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
+ */
+export interface WithSize {
+  size: BlockSize
 }
 
 /**

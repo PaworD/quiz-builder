@@ -63,5 +63,12 @@ export class MultipleChoiceBlockForm extends AbstractBlockForm<MultipleChoiceQui
       answer: ''
     }
   }
+
+  protected createInitialSize (): MultipleChoiceQuiz['size'] {
+    return {
+      cols: 4,
+      rows: 2
+    }
+  }
 }
 export default MultipleChoiceBlockForm

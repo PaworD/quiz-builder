@@ -27,7 +27,10 @@ export class App extends Vue {
         type: 'multipleChoice',
         title: '1',
         order: 0,
-        points: 2,
+        size: {
+          rows: 12,
+          cols: 6
+        },
         content: {
           question: 'What do you call a computer on a network that requests files from another computer?',
           variants: ['computer', 'router', 'host'],

@@ -3,6 +3,7 @@ import { VueConstructor } from 'vue'
 import { MultipleChoiceBlockForm, MultipleChoiceBlockUi } from '@/builder/blocks'
 
 import { BlockShelfItemsRegistry } from '@/builder/BlockShelf'
+import { multipleChoiceBlockConfig } from '@/builder/blocks/MultipleChoice/MultipleChoice.block.config'
 
 /**
  * @author Javlon Khalimjonov <khalimjanov2000@gmail.com>
@@ -29,9 +30,5 @@ export const blocksUiRegistry: Record<QuizType, VueConstructor> = {
  * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
  */
 export const availableBlocks: BlockShelfItemsRegistry = {
-  [QuizType.MultipleChoice]: {
-    icon: 'blank',
-    type: 'multipleChoice',
-    title: 'Multiple Choice'
-  }
+  [QuizType.MultipleChoice]: multipleChoiceBlockConfig()
 }

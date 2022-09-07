@@ -1,7 +1,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { v4 as uuid } from 'uuid'
 
-import { IBlock } from '@/builder'
+import { BlockSize, IBlock } from '@/builder'
 
 import { BlockShelfItemsRegistry } from './BlockShelf.contracts'
 
@@ -12,11 +12,26 @@ import { BlockShelfItemsRegistry } from './BlockShelf.contracts'
   name: 'BlockShelf',
   template: `
     <div class="Shelf">
+
         <span class="Shelf__info-stripe">
-          Quizes
+          Containers
         </span>
         <ul v-if="hasItems">
-          <li v-for="(block, index) in itemsRegistry" :key="index" draggable="true" @dragstart="(e) => onItemDrag(e, block.type)">
+          <li v-for="(block, index) in itemsRegistry" :key="index" draggable="true" @dragstart="(e) => onItemDrag(e, block.type, block.size)">
+            <div>
+              {{ block.title }}
+            </div>
+            <span>
+              {{ block.type }}
+            </span>
+          </li>
+        </ul>
+        
+        <span class="Shelf__info-stripe">
+          Components
+        </span>
+        <ul v-if="hasItems">
+          <li v-for="(block, index) in itemsRegistry" :key="index" draggable="true" @dragstart="(e) => onItemDrag(e, block.type, block.size)">
             <div>
               {{ block.title }}
             </div>
@@ -49,7 +64,7 @@ export class BlockShelf extends Vue {
     return Object.keys(this.itemsRegistry).length > 0
   }
 
-  public onItemDrag (event: DragEvent, type: string): void {
+  public onItemDrag (event: DragEvent, type: string, size: BlockSize): void {
     if (!event.dataTransfer) {
       return
     }
@@ -67,11 +82,11 @@ export class BlockShelf extends Vue {
 
     const newBlock: IBlock = {
       id: uuid(),
-      title: type.toUpperCase() + ' ' +  (order + 1),
-      order: order,
+      title: (order + 1).toString(),
+      order,
       content: {},
-      points: 0,
-      type: type
+      size,
+      type
     }
 
     event.dataTransfer.setData('new-block', JSON.stringify(newBlock))

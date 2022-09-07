@@ -35,5 +35,13 @@ export class AbstractBlockForm<Block extends IBlock> extends Vue {
     // Override
     throw new Error('Method must be overridden!')
   }
+
+  /**
+   * Creates the initial content for quiz, so it can boot up with predefined data.
+   */
+  protected createInitialSize (): Block['size'] {
+    // Override
+    throw new Error('Method must be overridden!')
+  }
 }
 export default AbstractBlockForm

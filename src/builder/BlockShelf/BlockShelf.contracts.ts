@@ -1,4 +1,5 @@
 import { QuizType } from '@/builder/defaults'
+import { BlockSize } from '@/builder'
 
 /**
  * @author Javlon Khalimjonov <khalimjanov2000@gmail.com>
@@ -18,6 +19,11 @@ export interface ShelfItem {
    * Title of the item.
    */
   title: string
+
+  /**
+   * Size of the block
+   */
+  size: BlockSize
 }
 
 /**

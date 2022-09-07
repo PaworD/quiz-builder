@@ -26,8 +26,7 @@ import { QuizBuilderMode } from './QuizBuilder.contracts'
       <BlockShelf v-if="showBlockShelf" :itemsRegistry="blockCollection" :blocks="qblocks" />
       
       <div class="QuizBuilder__workspace__area">
-        <Toolbar :quizCount="quizCount" :pointsCount="pointsCounts"
-                 :activeMode.sync="activeMode" @onSave="handleOnSave" />
+        <Toolbar :quizCount="quizCount" :activeMode.sync="activeMode" @onSave="handleOnSave" />
 
         <!-- Constructor / Renderer of quizzes -->
         <Constructor v-show="activeMode === mode.Edit" :blocks.sync="qblocks"/>
@@ -90,12 +89,6 @@ export class QuizBuilder extends Vue {
    */
   public get hasSelectedBlock (): boolean {
     return this.qblocks.some((block: IBlock) => block.selected)
-  }
-
-  public get pointsCounts (): number {
-    return this.qblocks.reduce((acc, nextBlock) => {
-      return acc + Number(nextBlock.points)
-    }, 0)
   }
 
   /**

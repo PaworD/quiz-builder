@@ -1,4 +1,4 @@
-import { AnyObject, WithContent, WithId, WithOrder, WithPoints, WithType } from '@/builder/helpers'
+import { AnyObject, BlockSize, WithContent, WithId, WithOrder, WithSize, WithType } from '@/builder/helpers'
 
 /**
  * @author Javlon Khalimjonov <khalimjanov2000@gmail.com>
@@ -20,11 +20,6 @@ export interface BlockData {
   order: number
 
   /**
-   * Determines the point of the quiz.
-   */
-  points: number
-
-  /**
    * Determines whether current block is selected.
    */
   selected?: boolean
@@ -38,6 +33,11 @@ export interface BlockData {
    * Determines block's type
    */
   type: string
+
+  /**
+   * Determines the size of the module.
+   */
+  size: BlockSize
 }
 
 /**
@@ -54,6 +54,6 @@ export type Quiz<Content, Type> = (
   WithContent<Content> &
   WithId &
   WithOrder &
-  WithPoints &
-  WithType<Type>
+  WithType<Type> &
+  WithSize
 )

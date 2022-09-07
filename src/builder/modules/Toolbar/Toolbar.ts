@@ -12,15 +12,11 @@ import { DiagramIcon, EyeIcon, SaveIcon } from '@/builder/shared/icons'
   template: `
     <div class="QToolbar">
       <!-- General Information -->
-      <div class="QToolbar__information">
-        <span class="QToolbar__information__info">
-          Q: {{ quizCount }}
-        </span>
-
-        <span class="QToolbar__information__info">
-          P: {{ pointsCount }}
-        </span>
-      </div>
+<!--      <div class="QToolbar__information">-->
+<!--        <span class="QToolbar__information__info">-->
+<!--          Q: {{ quizCount }}-->
+<!--        </span>-->
+<!--      </div>-->
       <!-- END | General Information -->
       
       <!-- Actions -->
@@ -49,9 +45,6 @@ import { DiagramIcon, EyeIcon, SaveIcon } from '@/builder/shared/icons'
 export class Toolbar extends Vue {
   @Prop({ type: Number, required: true })
   public readonly quizCount!: number
-
-  @Prop({ type: Number, required: true })
-  public readonly pointsCount!: number
 
   @PropSync('activeMode', { type: Number, required: true })
   public _activeMode!: QuizBuilderMode
