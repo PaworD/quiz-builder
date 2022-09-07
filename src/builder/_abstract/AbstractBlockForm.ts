@@ -14,8 +14,8 @@ import { IBlock } from '@/builder'
   }
 })
 export class AbstractBlockForm<Block extends IBlock> extends Vue {
-  @PropSync('data', { type: Object, required: true })
-  public _data!: Block['content']
+  @PropSync('formData', { type: Object, required: true })
+  public _formData!: Block['content']
 
   @Prop({ type: String, required: false })
   public readonly type?: Block['type']
@@ -25,7 +25,7 @@ export class AbstractBlockForm<Block extends IBlock> extends Vue {
    * @protected
    */
   protected boot (): void {
-    this._data = { ...this.createInitialContent(), ...this._data }
+    this._formData = { ...this.createInitialContent(), ...this._formData }
   }
 
   /**

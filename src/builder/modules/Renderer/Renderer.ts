@@ -12,7 +12,7 @@ import { IBlock } from '@/builder'
   template: `
     <div class="Renderer">
       <div :class="[listClassName]">
-        <component v-for="block in _blocks" :is="component(block.type)" :content.sync="block.content" :type="block.type" :key="block.id" />
+        <component v-for="block in _blocks" :is="component(block.type)" :uiData.sync="block.content" :type="block.type" :key="block.id" />
       </div>
     </div>
   `

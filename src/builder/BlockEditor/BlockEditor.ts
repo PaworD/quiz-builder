@@ -42,7 +42,7 @@ import { IBlock } from '@/builder'
         <!-- Block's content view -->
         <span class="BlockEditor__info-stripe">BLOCK SETTINGS [{{ _block.type }}]</span>
         <div class="BlockEditor__editor BlockEditor__editor__block-content">
-          <component :is="component" :data.sync="_block.content" :type="_block.type" :key="_block.id" />
+          <component :is="component" :formData.sync="_block.content" :type="_block.type" :key="_block.id" />
         </div>
       </div>
     

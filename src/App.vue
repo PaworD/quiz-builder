@@ -21,23 +21,7 @@ import { IBlock } from '@/builder/modules/Block'
 export class App extends Vue {
 
   public get mockBlocks (): IBlock[] {
-    return [
-      {
-        id: uuidv4(),
-        type: 'multipleChoice',
-        title: '1',
-        order: 0,
-        size: {
-          rows: 12,
-          cols: 6
-        },
-        content: {
-          question: 'What do you call a computer on a network that requests files from another computer?',
-          variants: ['computer', 'router', 'host'],
-          answer: 'A'
-        }
-      },
-    ]
+    return []
   }
 
   public onSave (blocks: any): void {
