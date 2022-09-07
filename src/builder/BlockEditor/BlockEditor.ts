@@ -1,7 +1,7 @@
 import { Component, Prop, PropSync, Vue } from 'vue-property-decorator'
 import { VueConstructor } from 'vue-class-component/dist/vue-class-component'
 
-import { QuizType, blocksFormRegistry } from '@/builder/defaults'
+import { PossibleElements, blocksFormRegistry } from '@/builder/defaults'
 import { IBlock } from '@/builder'
 
 /**
@@ -59,7 +59,7 @@ export class BlockEditor extends Vue {
    * Registry of the forms
    */
   @Prop({ type: Object, required: false, default: () => blocksFormRegistry })
-  private readonly formRegistry!: Record<QuizType, VueConstructor>
+  private readonly formRegistry!: Record<PossibleElements, VueConstructor>
 
   /**
    * Synchronized block.
@@ -75,7 +75,7 @@ export class BlockEditor extends Vue {
       console.error(`Could not find view for current Block! Got [${this._block.type}]`)
     }
 
-    return this.formRegistry[(this._block.type) as QuizType]
+    return this.formRegistry[(this._block.type) as PossibleElements]
   }
 
   /**

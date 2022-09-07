@@ -1,5 +1,5 @@
-import { HasAnswer, Quiz } from '@/builder'
-import { QuizType } from '@/builder/defaults'
+import { Element, HasAnswer } from '@/builder'
+import { PossibleElements } from '@/builder/defaults'
 
 /**
  * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
@@ -19,4 +19,4 @@ export interface MultipleChoiceQuizData extends HasAnswer {
 /**
  * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
  */
-export type MultipleChoiceQuiz = Quiz<MultipleChoiceQuizData, QuizType.MultipleChoice>
+export type ButtonElement = Element<MultipleChoiceQuizData, PossibleElements.Button>

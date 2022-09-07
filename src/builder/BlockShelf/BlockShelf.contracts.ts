@@ -1,4 +1,4 @@
-import { QuizType } from '@/builder/defaults'
+import { PossibleElements } from '@/builder/defaults'
 import { BlockSize } from '@/builder'
 
 /**
@@ -29,4 +29,4 @@ export interface ShelfItem {
 /**
  * @author Javlon Khalimjonov <khalimjanov2000@gmail.com>
  */
-export type BlockShelfItemsRegistry = Record<QuizType, ShelfItem>
+export type BlockShelfItemsRegistry = Record<PossibleElements, ShelfItem>

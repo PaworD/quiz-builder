@@ -1,6 +1,6 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 
-import { availableBlocks } from '../defaults'
+import { availableElements } from '../defaults'
 import { BlockShelf, BlockShelfItemsRegistry } from '../BlockShelf'
 import { BlockEditor } from '../BlockEditor/BlockEditor'
 import { Constructor, IBlock, Renderer, Toolbar } from '../modules'
@@ -68,7 +68,7 @@ export class QuizBuilder extends Vue {
    */
   public get blockCollection (): BlockShelfItemsRegistry {
     return {
-      ...availableBlocks,
+      ...availableElements,
       ...this.blockShelfItems
     }
   }

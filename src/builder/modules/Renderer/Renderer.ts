@@ -1,7 +1,7 @@
 import { VueConstructor } from 'vue'
 import { Component, Prop, PropSync, Vue } from 'vue-property-decorator'
 
-import { blocksUiRegistry, QuizType } from '@/builder/defaults'
+import { blocksUiRegistry, PossibleElements } from '@/builder/defaults'
 import { IBlock } from '@/builder'
 
 /**
@@ -22,7 +22,7 @@ export class Renderer extends Vue {
    * Registry of the UI components.
    */
   @Prop({ type: Object, required: false, default: () => blocksUiRegistry })
-  private readonly uiRegistry!: Record<QuizType, VueConstructor>
+  private readonly uiRegistry!: Record<PossibleElements, VueConstructor>
 
   @Prop({ type: String, required: false, default: '' })
   public readonly listClassName?: string
@@ -35,7 +35,7 @@ export class Renderer extends Vue {
    * @param type - type of the quiz.
    */
   public component (type: string): VueConstructor {
-    return this.uiRegistry[type as QuizType]
+    return this.uiRegistry[type as PossibleElements]
   }
 }
 export default Renderer

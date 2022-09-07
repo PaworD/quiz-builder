@@ -2,7 +2,7 @@ import { Component } from 'vue-property-decorator'
 
 import { AbstractBlockUi } from '@/builder/_abstract'
 
-import { MultipleChoiceQuiz } from './MultipleChoice.block.contracts'
+import { ButtonElement } from './MultipleChoice.block.contracts'
 
 /**
  * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
@@ -20,5 +20,5 @@ import { MultipleChoiceQuiz } from './MultipleChoice.block.contracts'
     </div>
   `
 })
-export class MultipleChoiceBlockUi extends AbstractBlockUi<MultipleChoiceQuiz> {}
+export class MultipleChoiceBlockUi extends AbstractBlockUi<ButtonElement> {}
 export default MultipleChoiceBlockUi

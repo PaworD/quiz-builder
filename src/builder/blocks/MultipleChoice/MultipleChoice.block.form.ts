@@ -2,7 +2,7 @@ import { Component } from 'vue-property-decorator'
 
 import { AbstractBlockForm } from '../../_abstract/AbstractBlockForm'
 
-import { MultipleChoiceQuiz } from '../MultipleChoice'
+import { ButtonElement } from '../MultipleChoice'
 
 /**
  * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
@@ -29,7 +29,7 @@ import { MultipleChoiceQuiz } from '../MultipleChoice'
     </div>
   `
 })
-export class MultipleChoiceBlockForm extends AbstractBlockForm<MultipleChoiceQuiz> {
+export class MultipleChoiceBlockForm extends AbstractBlockForm<ButtonElement> {
   /**
    * Determines whether there are variants.
    */
@@ -56,7 +56,7 @@ export class MultipleChoiceBlockForm extends AbstractBlockForm<MultipleChoiceQui
   /**
    * @override
    */
-  protected createInitialContent (): MultipleChoiceQuiz['content'] {
+  protected createInitialContent (): ButtonElement['content'] {
     return {
       question: '',
       variants: [],
@@ -64,7 +64,7 @@ export class MultipleChoiceBlockForm extends AbstractBlockForm<MultipleChoiceQui
     }
   }
 
-  protected createInitialSize (): MultipleChoiceQuiz['size'] {
+  protected createInitialSize (): ButtonElement['size'] {
     return {
       cols: 4,
       rows: 2

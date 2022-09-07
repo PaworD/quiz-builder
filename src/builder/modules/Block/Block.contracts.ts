@@ -50,7 +50,7 @@ export interface IBlock<Content extends AnyObject = AnyObject> extends BlockData
 /**
  * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
  */
-export type Quiz<Content, Type> = (
+export type Element<Content, Type> = (
   WithContent<Content> &
   WithId &
   WithOrder &
