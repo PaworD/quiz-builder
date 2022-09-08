@@ -100,6 +100,11 @@ export class Constructor extends Vue {
   public removeBlock (id: string): void {
     this._blocks = this._blocks.filter((block) => {
       return block.id !== id
+    }).map((block, index) => {
+      return {
+        ...block,
+        order: index + 1
+      }
     })
   }
 
