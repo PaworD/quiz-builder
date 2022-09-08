@@ -9,8 +9,9 @@
   },
   "dependencies": {
     "@types/uuid": "^8.3.4",
-    "ant-design-vue": "^3.2.12",
     "core-js": "^3.6.5",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-vue": "^0.11.0",
     "uuid": "^8.3.2",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
