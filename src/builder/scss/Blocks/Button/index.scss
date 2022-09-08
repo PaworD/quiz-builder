@@ -12,9 +12,13 @@
     justify-content: center;
     width: 100%;
 
-    &.checkbox {
+    &.checkboxes-container {
+      display: flex;
       flex-direction: row;
-      justify-content: flex-start;
+
+      div {
+        width: 50%;
+      }
     }
 
     label {

@@ -103,3 +103,8 @@ export const ButtonVariantClassRegistry: Record<ButtonVariant, string> = {
   [ButtonVariant.Full]: '',
   [ButtonVariant.Outline]: '--outline'
 }
+
+/**
+ * @author Maciej Perzankowski <maciej.perzankowski@movecloser.pl>
+ */
+export type SUISelectOptionType = { text: string | number, value: string | number }
