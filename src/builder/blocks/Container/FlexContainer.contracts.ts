@@ -1,5 +1,7 @@
 import { BuildContainer, PossibleContainer } from '@/builder/defaults/containers'
 
+import { IBlock } from '@/builder'
+
 /**
  * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
  */
@@ -12,7 +14,7 @@ export interface FlexContainerData {
   /**
    * Determines possible answer variants for given question
    */
-  children: any[]
+  children: IBlock[]
 }
 
 /**

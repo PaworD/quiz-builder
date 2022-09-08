@@ -13,9 +13,14 @@ export enum PossibleContainer {
 /**
  * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
  */
-export const containersRegistry: Record<PossibleContainer, VueConstructor> = {
+export const containersRegistry: ContainersRegistry = {
   [PossibleContainer.Flex]: FlexContainerForm
 }
+
+/**
+ * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
+ */
+export type ContainersRegistry = Record<PossibleContainer, VueConstructor>
 
 /**
  * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>

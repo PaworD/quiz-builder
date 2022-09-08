@@ -4,6 +4,7 @@ import { v4 as uuid } from 'uuid'
 import { BlockSize, IBlock } from '@/builder'
 
 import { BlockShelfItemsRegistry } from './BlockShelf.contracts'
+import { ContainersRegistry } from '@/builder/defaults/containers'
 
 /**
  * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
@@ -17,7 +18,7 @@ import { BlockShelfItemsRegistry } from './BlockShelf.contracts'
           Containers
         </span>
         <ul v-if="hasItems">
-          <li v-for="(block, index) in itemsRegistry" :key="index" draggable="true" @dragstart="(e) => onItemDrag(e, block.type, block.size)">
+          <li v-for="(block, index) in containersRegistry" :key="index" draggable="true" @dragstart="(e) => onItemDrag(e, block.type, block.size)">
             <div>
               {{ block.title }}
             </div>
@@ -46,6 +47,9 @@ import { BlockShelfItemsRegistry } from './BlockShelf.contracts'
 export class BlockShelf extends Vue {
   @Prop({ type: Object, required: false, default: () => ({}) })
   public itemsRegistry?: BlockShelfItemsRegistry
+
+  @Prop({ type: Object, required: false, default: () => ({}) })
+  public containersRegistry?: ContainersRegistry
 
   /**
    * Available blocks to use.

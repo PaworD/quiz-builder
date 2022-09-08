@@ -34,8 +34,13 @@ import { IBlock } from '@/builder'
           </div>
 
           <div class="essentials__group">
-            <span>Points: </span>
-            <input type="number" class="essentials__input" v-model="_block.points" placeholder="Points">
+            <span>Width: </span>
+            <input type="number" max="12" class="essentials__input" v-model="_block.size.cols" placeholder="Title">
+          </div>
+
+          <div class="essentials__group">
+            <span>Height: </span>
+            <input type="number" max="1000" class="essentials__input" v-model="_block.size.rows" placeholder="Title">
           </div>
         </div>
   
