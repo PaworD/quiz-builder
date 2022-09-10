@@ -4,7 +4,16 @@ module.exports = {
     loaderOptions: {
       sass: {
         additionalData: `@import "@/builder/scss/index.scss";`
-      }
-    }
+      },
+      less: {
+        modifyVars: {
+          'primary-color': '#636FEC',
+          'processing-color': '#C8EFFF',
+          'border-radius-base': '2px',
+        },
+        javascriptEnabled: true,
+        math: 'always'
+      },
+    },
   },
 }
