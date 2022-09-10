@@ -5,10 +5,7 @@
 
   padding: .5rem 1rem;
 
-  border-bottom: 1px solid #ccc;
-  border-left: 2px dashed #ccc;
-  border-right: 2px dashed #ccc;
-
+  border: none;
   &__actions {
     display: flex;
     gap: .5rem;

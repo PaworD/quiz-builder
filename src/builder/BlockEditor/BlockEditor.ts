@@ -22,7 +22,7 @@ import { IBlock } from '@/builder'
     <div class="BlockEditor">
     <div class="BlockEditor__container" v-if="hasBlock">
       <!-- Block's default attributes -->
-      <span class="BlockEditor__info-stripe">ESSENTIALS</span>
+      <a-divider orientation="center" class="BlockEditor__info-stripe">ESSENTIALS</a-divider>
       <div class="BlockEditor__editor BlockEditor__editor__essentials">
           <span class="t-small block-id">
            <strong>ID: </strong> <span>{{ _block.id }}</span>
@@ -30,32 +30,30 @@ import { IBlock } from '@/builder'
 
         <div class="essentials__group">
           <label for="label">Title</label>
-          <sui-input type="text" v-model="_block.title" placeholder="Enter title" required />
+          <a-input type="text" v-model="_block.title" placeholder="Enter title" size="large" required allow-clear />
         </div>
 
         <div class="essentials__group">
           <label>Width </label>
-          <sui-input type="number" max="12" v-model="_block.size.cols" placeholder="Enter width" />
+          <a-input type="number" min="1" max="12" v-model="_block.size.cols" placeholder="Enter width"  size="large" />
         </div>
 
         <div class="essentials__group">
           <label>Height </label>
-          <sui-input type="number" max="1000" v-model="_block.size.rows"
-                     placeholder="Enter height" />
+          <a-input type="number" min="1" max="1000" v-model="_block.size.rows"
+                   placeholder="Enter height" size="large" />
         </div>
       </div>
 
       <!-- Block's content view -->
-      <span class="BlockEditor__info-stripe">BLOCK SETTINGS [{{ _block.type }}]</span>
+      <a-divider orientation="center" class="BlockEditor__info-stripe">BLOCK SETTINGS [{{ _block.type }}]</a-divider>
       <div class="BlockEditor__editor BlockEditor__editor__block-content">
         <component :is="component" :formData.sync="_block.content" :type="_block.type" :key="_block.id" />
       </div>
     </div>
 
     <div class="BlockEditor__not-found" v-else>
-        <span class="t-muted">
-          select block
-        </span>
+      select block
     </div>
     </div>
   `

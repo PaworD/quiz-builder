@@ -2,64 +2,84 @@
   <div class="ButtonForm">
     <div class="input">
       <label for="label">Label</label>
-      <sui-input type="text" name="label" placeholder="Enter button label" v-model="_formData.label"
-                 required />
+      <a-input type="text" name="label" placeholder="Enter button label" size="large"
+               v-model="_formData.label" required allow-clear />
+    </div>
+
+    <div class="select">
+      <label for="variants">Variants</label>
+      <a-select
+        name="variants"
+        placeholder="Select button variant"
+        show-search
+        size="large"
+        v-model="_formData.variant"
+      >
+        <a-select-option v-for="(variant, index) in variants" :value="variant"
+                         :key="`buttonVariant-${index}`">
+          {{ variant }}
+        </a-select-option>
+      </a-select>
+    </div>
+
+    <div class="select">
+      <label for="themes">Themes</label>
+      <a-select
+        name="themes"
+        placeholder="Select button theme"
+        show-search
+        size="large"
+        v-model="_formData.theme"
+      >
+        <a-select-option v-for="(theme, index) in themes" :value="theme"
+                         :key="`buttonTheme-${index}`">
+          {{ theme }}
+        </a-select-option>
+      </a-select>
+    </div>
+
+    <div class="select">
+      <label for="shapes">Shape</label>
+      <a-select
+        name="shapes"
+        placeholder="Select button shape"
+        show-search
+        size="large"
+        v-model="_formData.shape"
+      >
+        <a-select-option v-for="(shape, index) in shapes" :value="shape"
+                         :key="`buttonShape-${index}`">
+          {{ shape }}
+        </a-select-option>
+      </a-select>
+    </div>
+
+    <div class="select">
+      <label for="actions">Actions</label>
+      <a-select
+        name="actions"
+        placeholder="Select button action"
+        show-search
+        size="large"
+        v-model="_formData.action"
+      >
+        <a-select-option v-for="(action, index) in actions" :value="action"
+                         :key="`buttonAction-${index}`">
+          {{ action }}
+        </a-select-option>
+      </a-select>
     </div>
 
     <div class="checkboxes-container">
       <div class="checkbox">
         <label for="disabled">Disabled</label>
-        <sui-checkbox name="disabled" v-model="_formData.disabled" required toggle />
+        <a-switch name="disabled" v-model="_formData.disabled" size="large" required/>
       </div>
 
       <div class="checkbox">
         <label for="loading">Loading</label>
-        <sui-checkbox name="loading" v-model="_formData.loading" required toggle />
+        <a-switch name="loading" v-model="_formData.loading" size="large" required />
       </div>
-    </div>
-
-    <div class="select">
-      <label for="variants">Variants</label>
-      <sui-dropdown
-        name="variants"
-        placeholder="Select button variant"
-        selection
-        :options="variants"
-        v-model="_formData.variant"
-      />
-    </div>
-
-    <div class="select">
-      <label for="themes">Themes</label>
-      <sui-dropdown
-        name="themes"
-        placeholder="Select button theme"
-        selection
-        :options="themes"
-        v-model="_formData.theme"
-      />
-    </div>
-
-    <div class="select">
-      <label for="shapes">Shape</label>
-      <sui-dropdown
-        name="shapes"
-        placeholder="Select button shape"
-        selection
-        :options="shapes"
-        v-model="_formData.shape"
-      />
-    </div>
-
-    <div class="select">
-      <label for="actions">Actions</label>
-      <sui-dropdown
-        name="actions"
-        placeholder="Select button action"
-        selection
-        :options="actions"
-        v-model="_formData.action"
-      />
     </div>
   </div>
 </template>
@@ -74,7 +94,7 @@ import {
   ButtonElement,
   ButtonShape,
   ButtonTheme,
-  ButtonVariant, SUISelectOptionType
+  ButtonVariant
 } from './Button.contracts'
 import { AnyObject } from '@/builder'
 
@@ -85,30 +105,22 @@ import { AnyObject } from '@/builder'
   name: 'ButtonForm'
 })
 export class ButtonForm extends AbstractBlockForm<ButtonElement> {
-  public get actions (): SUISelectOptionType[] {
-    return this.mapDataToSUISelectOptions(Object.values(ButtonAction))
+  public get actions (): string[] {
+    return Object.values(ButtonAction)
   }
 
-  public get shapes (): SUISelectOptionType[] {
-    return this.mapDataToSUISelectOptions(Object.values(ButtonShape))
+  public get shapes (): string[] {
+    return Object.values(ButtonShape)
   }
 
-  public get themes (): SUISelectOptionType[] {
-    return this.mapDataToSUISelectOptions(Object.values(ButtonTheme))
+  public get themes (): string[] {
+    return Object.values(ButtonTheme)
   }
 
-  public get variants (): SUISelectOptionType[] {
-    return this.mapDataToSUISelectOptions(Object.values(ButtonVariant))
+  public get variants (): string[] {
+    return Object.values(ButtonVariant)
   }
 
-  public mapDataToSUISelectOptions = (options: string[]) => {
-    return options.map((action) => {
-      return {
-        text: action,
-        value: action
-      }
-    })
-  }
 
   /**
    * @override

@@ -1,11 +1,13 @@
+$primary: #1890ff;
+
 .BlockEditor {
-  width: 350px;
-  max-width: 350px;
-  min-width: 300px;
-
-  height: 100%;
-
-  border-left: 2px solid #2185d0;
+  max-width: 25rem;
+  width: 100%;
+  height: 100vh;
+  border-left: 0.125rem solid $primary;
+  border-radius: 0.25rem;
+  color: #000;
+  position: relative;
 
   &__container {
     display: flex;
@@ -26,10 +28,16 @@
 
       .block-id {
         display: flex;
-        gap: 0.25rem;
+        gap: 0.5rem;
+        align-items: center;
+
+        strong {
+          font-size: 1.25rem;
+          font-weight: bold;
+        }
 
         span {
-          color: #2185d0;
+          color: $primary;
         }
       }
 
@@ -42,9 +50,9 @@
       }
 
       label {
-        font-size: 1rem;
+        font-size: 1.25rem;
         font-weight: bold;
-        line-height: 1.25;
+        line-height: 1;
       }
 
       input {
@@ -70,31 +78,29 @@
 
   &__info-stripe {
     background: #FFF;
-    color: #000;
+    color: #000 !important;
     padding: 0.5rem 1rem;
-    font-size: 1.25rem;
     width: 100%;
-    border: 2px solid #2185d0;
-    border-right: none;
-    border-left: none;
+    font-weight: bold !important;
+    font-size: 1.5rem !important;
+
+    &:after, &:before {
+      border-color: $primary !important;
+      border-width: 0.125rem !important;
+    }
   }
 
   &__not-found {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
     text-transform: uppercase;
-
-    > span {
-      padding: 1.3rem;
-
-      display: block;
-
-      border: 2px dashed #ccc;
-
-      border-radius: 5px;
-    }
+    padding: 1rem;
+    border-radius: 0.25rem;
+    font-size: 1.25rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 0.125rem dashed $primary;
+    color: $primary;
+    opacity: 0.8;
   }
 }
