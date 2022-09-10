@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@types/uuid": "^8.3.4",
+    "ant-design-vue": "^1.7.8",
     "core-js": "^3.6.5",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-vue": "^0.11.0",
@@ -29,6 +30,7 @@
     "@vue/cli-plugin-vuex": "~4.5.13",
     "@vue/cli-service": "~4.5.13",
     "@vue/eslint-config-typescript": "^7.0.0",
+    "babel-plugin-import": "^1.13.5",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "node-sass": "^6.0.1",

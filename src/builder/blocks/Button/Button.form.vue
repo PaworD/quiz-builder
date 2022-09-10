@@ -2,12 +2,12 @@
   <div class="ButtonForm">
     <div class="input">
       <label for="label">Label</label>
-      <input type="text" name="label" placeholder="Enter button label" v-model="_formData.label" required>
+      <a-input v-model="_formData.label" placeholder="Basic usage" />
     </div>
 
     <div class="checkbox">
       <label for="disabled">Disabled</label>
-      <input type="checkbox" name="disabled" v-model="_formData.disabled" required>
+      <a-checkbox name="disabled" v-model="_formData.disabled" required />
     </div>
 
     <div class="checkbox">
