@@ -1,3 +1,6 @@
+$primary: #1890ff;
+$secondary: #C8EFFF;
+
 .ButtonForm {
   display: flex;
   flex-direction: column;
@@ -28,6 +31,25 @@
       font-size: 1.25rem;
       font-weight: bold;
       line-height: 1;
+    }
+  }
+}
+
+.ButtonUi {
+  button {
+    width: 100%;
+    background-color: $primary;
+    color: #fff;
+
+    &.--outline {
+      background-color: #fff;
+      color: $primary;
+      border-color: $primary;
+    }
+
+    &.--secondary {
+      background-color: $secondary;
+      color: $primary;
     }
   }
 }

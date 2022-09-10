@@ -67,7 +67,7 @@ export enum ButtonTheme {
 /**
  * @author Maciej Perzankowski <maciej.perzankowski@movecloser.pl>
  */
-export const buttonThemeClassRegistry: Record<ButtonTheme, string> = {
+export const ButtonThemeClassRegistry: Record<string, string> = {
   [ButtonTheme.Secondary]: '--secondary',
   [ButtonTheme.Primary]: ''
 }
@@ -83,7 +83,7 @@ export enum ButtonShape {
 /**
  * @author Maciej Perzankowski <maciej.perzankowski@movecloser.pl>
  */
-export const ButtonShapeClassRegistry: Record<ButtonShape, string> = {
+export const ButtonShapeClassRegistry: Record<string, string> = {
   [ButtonShape.Rectangle]: '',
   [ButtonShape.Square]: '--square'
 }
@@ -99,7 +99,7 @@ export enum ButtonVariant {
 /**
  * @author Maciej Perzankowski <maciej.perzankowski@movecloser.pl>
  */
-export const ButtonVariantClassRegistry: Record<ButtonVariant, string> = {
+export const ButtonVariantClassRegistry: Record<string, string> = {
   [ButtonVariant.Full]: '',
   [ButtonVariant.Outline]: '--outline'
 }

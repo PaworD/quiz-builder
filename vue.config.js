@@ -7,7 +7,7 @@ module.exports = {
       },
       less: {
         modifyVars: {
-          'primary-color': '#636FEC',
+          'primary-color': '#1890ff',
           'processing-color': '#C8EFFF',
           'border-radius-base': '2px',
         },
