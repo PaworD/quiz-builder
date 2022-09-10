@@ -1,7 +1,7 @@
 import { Component, Prop, PropSync, Vue } from 'vue-property-decorator'
 import { VueConstructor } from 'vue-class-component/dist/vue-class-component'
 
-import { PossibleElements, blocksFormRegistry } from '@/builder/defaults'
+import { blocksFormRegistry, PossibleElements } from '@/builder/defaults'
 import { IBlock } from '@/builder'
 
 /**
@@ -20,42 +20,43 @@ import { IBlock } from '@/builder'
   name: 'BlockEditor',
   template: `
     <div class="BlockEditor">
-      <div class="BlockEditor__container" v-if="hasBlock">
-        <!-- Block's default attributes -->
-        <span class="BlockEditor__info-stripe">ESSENTIALS</span>
-        <div class="BlockEditor__editor BlockEditor__editor__essentials">
-          <span class="t-small t-muted">
-            ID: {{ _block.id }}
+    <div class="BlockEditor__container" v-if="hasBlock">
+      <!-- Block's default attributes -->
+      <span class="BlockEditor__info-stripe">ESSENTIALS</span>
+      <div class="BlockEditor__editor BlockEditor__editor__essentials">
+          <span class="t-small block-id">
+           <strong>ID: </strong> <span>{{ _block.id }}</span>
           </span>
-          
-          <div class="essentials__group">
-            <span>Title: </span>
-            <input type="text" class="essentials__input" v-model="_block.title" placeholder="Title">
-          </div>
 
-          <div class="essentials__group">
-            <span>Width: </span>
-            <input type="number" max="12" class="essentials__input" v-model="_block.size.cols" placeholder="Title">
-          </div>
-
-          <div class="essentials__group">
-            <span>Height: </span>
-            <input type="number" max="1000" class="essentials__input" v-model="_block.size.rows" placeholder="Title">
-          </div>
+        <div class="essentials__group">
+          <label for="label">Title</label>
+          <sui-input type="text" v-model="_block.title" placeholder="Enter title" required />
         </div>
-  
-        <!-- Block's content view -->
-        <span class="BlockEditor__info-stripe">BLOCK SETTINGS [{{ _block.type }}]</span>
-        <div class="BlockEditor__editor BlockEditor__editor__block-content">
-          <component :is="component" :formData.sync="_block.content" :type="_block.type" :key="_block.id" />
+
+        <div class="essentials__group">
+          <label>Width </label>
+          <sui-input type="number" max="12" v-model="_block.size.cols" placeholder="Enter width" />
+        </div>
+
+        <div class="essentials__group">
+          <label>Height </label>
+          <sui-input type="number" max="1000" v-model="_block.size.rows"
+                     placeholder="Enter height" />
         </div>
       </div>
-    
-      <div class="BlockEditor__not-found" v-else>
+
+      <!-- Block's content view -->
+      <span class="BlockEditor__info-stripe">BLOCK SETTINGS [{{ _block.type }}]</span>
+      <div class="BlockEditor__editor BlockEditor__editor__block-content">
+        <component :is="component" :formData.sync="_block.content" :type="_block.type" :key="_block.id" />
+      </div>
+    </div>
+
+    <div class="BlockEditor__not-found" v-else>
         <span class="t-muted">
           select block
         </span>
-      </div>
+    </div>
     </div>
   `
 })
