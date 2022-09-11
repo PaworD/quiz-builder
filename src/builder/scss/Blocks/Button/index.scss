@@ -40,11 +40,18 @@ $secondary: #C8EFFF;
     width: 100%;
     background-color: $primary;
     color: #fff;
+    border: 0.125rem solid transparent;
 
     &.--outline {
       background-color: #fff;
       color: $primary;
       border-color: $primary;
+
+      &.--secondary {
+        color: $primary;
+        background-color: #fff;
+        border-color: $secondary;
+      }
     }
 
     &.--secondary {

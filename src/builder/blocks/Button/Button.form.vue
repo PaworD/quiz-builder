@@ -70,6 +70,11 @@
       </a-select>
     </div>
 
+    <div v-if="_formData.action === 'link'">
+      link
+    </div>
+    <div v-else>click</div>
+
     <div class="checkboxes-container">
       <div class="checkbox">
         <label for="disabled">Disabled</label>

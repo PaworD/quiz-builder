@@ -1,7 +1,7 @@
 <template>
   <div class="ButtonUi">
     <a-button v-if="this._uiData" type="primary" :class="className" :disabled="disabled"
-              :loading="loading">
+              :loading="loading" @click="handleClick">
       {{ text }}
     </a-button>
   </div>
@@ -26,8 +26,8 @@ import {
   name: 'MultipleChoiceBlockUi'
 })
 export class ButtonUi extends AbstractBlockUi<ButtonElement> {
-  public get text (): string {
-    return this._uiData.label
+  public get action (): string | (() => void ){
+    return this._uiData.action
   }
 
   public get disabled (): boolean {
@@ -38,25 +38,39 @@ export class ButtonUi extends AbstractBlockUi<ButtonElement> {
     return this._uiData.isLoading
   }
 
+  public get text (): string {
+    return this._uiData.label
+  }
+
   public get className (): string {
-    let classes = ''
+    let classes = []
 
     const theme = ButtonThemeClassRegistry[this._uiData.theme]
     if (typeof theme !== 'undefined') {
-      classes += theme
+      classes.push(theme)
     }
 
     const shape = ButtonShapeClassRegistry[this._uiData.shape]
     if (typeof shape !== 'undefined') {
-      classes += shape
+      classes.push(shape)
     }
 
     const variant = ButtonVariantClassRegistry[this._uiData.variant]
-    if (typeof shape !== 'undefined') {
-      classes += variant
+    if (typeof variant !== 'undefined') {
+      classes.push(variant)
     }
 
-    return classes
+    return classes.join(' ').trim()
+  }
+
+
+
+  public handleClick (): void {
+    if (this.action !== 'click') {
+      return
+    }
+
+    alert('cool, you just clicked on me ( ͡° ͜ʖ ͡°)')
   }
 }
 export default ButtonUi
