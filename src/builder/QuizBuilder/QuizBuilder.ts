@@ -1,10 +1,11 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 
-import { availableElements } from '../defaults'
+import { availableElements, PossibleElements } from '../defaults'
 import { BlockShelf, BlockShelfItemsRegistry } from '../BlockShelf'
 import { BlockEditor } from '../BlockEditor/BlockEditor'
 import { Constructor, IBlock, Renderer, Toolbar } from '../modules'
 import { QuizBuilderMode } from './QuizBuilder.contracts'
+import { availbaleContainers, PossibleContainer } from '@/builder/defaults/containers'
 
 @Component<QuizBuilder>({
   name: 'QuizBuilder',
@@ -12,25 +13,29 @@ import { QuizBuilderMode } from './QuizBuilder.contracts'
   created (): void {
     this.qblocks = this.blocks.map(block =>({
       ...block,
-      // We add this property here because
-      // it is runtime property, we do not want to include it in contract.
+      selected: false
+    }))
+
+    this.qContainers = this.containers.map(container => ({
+      ...container,
       selected: false
     }))
 
     this.buildBlocks()
+    this.buildContainers()
   },
 
   template: `
     <div class="QuizBuilder">
       <!-- Shelf of blocks -->
-      <BlockShelf v-if="showBlockShelf" :itemsRegistry="blockCollection" :blocks="qblocks" />
+      <BlockShelf v-if="showBlockShelf" :itemsRegistry="blockCollection" :containersRegistry="containersCollection" />
       
       <div class="QuizBuilder__workspace__area">
         <Toolbar :quizCount="quizCount" :activeMode.sync="activeMode" @onSave="handleOnSave" />
 
         <!-- Constructor / Renderer of quizzes -->
-        <Constructor v-show="activeMode === mode.Edit" :blocks.sync="qblocks"/>
-        <Renderer v-show="activeMode === mode.View" :blocks.sync="qblocks" />
+        <Constructor v-show="activeMode === mode.Edit" :blocks.sync="qblocks" :containers.sync="qContainers" />
+        <Renderer v-show="activeMode === mode.View" :blocks.sync="qblocks" :containers.sync="containers" />
       </div>
 
       <!-- Editor of block -->
@@ -45,11 +50,8 @@ export class QuizBuilder extends Vue {
   @Prop({ type: Array, required: true })
   public blocks!: IBlock[]
 
-  /**
-   * Registry of blocks.
-   */
-  @Prop({ type: Object, required: false, default: () => ({}) })
-  public blockShelfItems!: BlockShelfItemsRegistry
+  @Prop({ type: Array, required: true })
+  public containers!: IBlock[]
 
   /**
    * Determines whether QuizBuilder should be displayed with shelf.
@@ -58,6 +60,7 @@ export class QuizBuilder extends Vue {
   public readonly showBlockShelf!: boolean
 
   public qblocks: IBlock[] = []
+  public qContainers: IBlock[] = []
 
   public readonly mode = QuizBuilderMode
 
@@ -66,10 +69,15 @@ export class QuizBuilder extends Vue {
   /**
    * Collection of default and custom blocks to be passed to shelf.
    */
-  public get blockCollection (): BlockShelfItemsRegistry {
+  public get blockCollection (): BlockShelfItemsRegistry<PossibleElements> {
     return {
-      ...availableElements,
-      ...this.blockShelfItems
+      ...availableElements
+    }
+  }
+
+  public get containersCollection (): BlockShelfItemsRegistry<PossibleContainer> {
+    return {
+      ...availbaleContainers
     }
   }
 
@@ -81,7 +89,7 @@ export class QuizBuilder extends Vue {
    * Handles onSave event of Constructor.
    */
   public handleOnSave (): void {
-    this.$emit('onSave', this.qblocks)
+    this.$emit('onSave', { elements: this.qblocks, containers: this.qContainers })
   }
 
   /**
@@ -89,6 +97,10 @@ export class QuizBuilder extends Vue {
    */
   public get hasSelectedBlock (): boolean {
     return this.qblocks.some((block: IBlock) => block.selected)
+  }
+
+  public get hasSelectedContainer (): boolean {
+    return this.qContainers.some((block: IBlock) => block.selected)
   }
 
   /**
@@ -103,6 +115,17 @@ export class QuizBuilder extends Vue {
   }
 
   /**
+   * Determines selected block.
+   */
+  public get selectedContainer (): IBlock | undefined {
+    if (!this.hasSelectedBlock) {
+      return
+    }
+
+    return this.qContainers.filter((container: IBlock) => container.selected)[0]
+  }
+
+  /**
    * Builds and sorts "inner" blocks
    */
   private buildBlocks (): void {
@@ -111,9 +134,20 @@ export class QuizBuilder extends Vue {
     })
   }
 
+  private buildContainers (): void {
+    this.qContainers = this.containers.sort((a, b) => {
+      return a.order - b.order
+    })
+  }
+
   @Watch('blocks')
   protected onBlock (): void {
     this.buildBlocks()
+  }
+
+  @Watch('containers')
+  protected onContainers (): void {
+    this.buildContainers()
   }
 }
 export default QuizBuilder

@@ -23,7 +23,7 @@ import {
  * @author Maciej Perzankowski <maciej.perzankowski@movecloser.pl>
  */
 @Component<ButtonUi>({
-  name: 'MultipleChoiceBlockUi'
+  name: 'ButtonUi'
 })
 export class ButtonUi extends AbstractBlockUi<ButtonElement> {
   public get action (): string | (() => void ){

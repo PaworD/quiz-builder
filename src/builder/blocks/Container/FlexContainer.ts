@@ -34,8 +34,8 @@ export class FlexContainerForm extends AbstractBlockForm<FlexContainer> {
    */
   protected createInitialSize (): FlexContainer['size'] {
     return {
-      cols: 4,
-      rows: 2
+      cols: 12,
+      rows: 0
     }
   }
 }

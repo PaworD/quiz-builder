@@ -20,6 +20,9 @@ export class Renderer extends Vue {
   @PropSync('blocks', { type: Array, required: true })
   public _blocks!: IBlock[]
 
+  @PropSync('containers', { type: Array, required: true })
+  public _containers!: IBlock[]
+
   @Prop({ type: Array, required: false, default: () => ([]) })
   public readonly rendererClasses?: string[]
   /**

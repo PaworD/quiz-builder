@@ -29,6 +29,6 @@ export const blocksUiRegistry: Record<PossibleElements, VueConstructor> = {
 /**
  * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
  */
-export const availableElements: BlockShelfItemsRegistry = {
+export const availableElements: BlockShelfItemsRegistry<PossibleElements> = {
   [PossibleElements.Button]: buttonElementConfig()
 }

@@ -29,4 +29,4 @@ export interface ShelfItem {
 /**
  * @author Javlon Khalimjonov <khalimjanov2000@gmail.com>
  */
-export type BlockShelfItemsRegistry = Record<PossibleElements, ShelfItem>
+export type BlockShelfItemsRegistry<T extends string = string> = Record<T, ShelfItem>

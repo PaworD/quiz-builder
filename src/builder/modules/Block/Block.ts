@@ -20,9 +20,9 @@ import { AnyObject, BlockSize } from '@/builder'
       </button>
     </div>
       <!-- Title -->
-      <h5 v-if="hasTitle">
+      <h4 v-if="hasTitle">
         {{ title }}
-      </h5>
+      </h4>
       <!-- End | Title -->
     </div>
   `

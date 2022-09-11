@@ -1,0 +1,22 @@
+.ContainerBlock {
+  width: 100%;
+  height: max-content;
+
+  padding: 1rem;
+
+  background-color: rgba($primary, .1);
+
+
+  &__children {
+    width: 100%;
+    height: auto;
+
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  &.--selected {
+    border: 2px solid #000;
+  }
+}

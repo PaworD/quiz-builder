@@ -52,12 +52,6 @@ export class BlockShelf extends Vue {
   public containersRegistry?: ContainersRegistry
 
   /**
-   * Available blocks to use.
-   */
-  @Prop({ type: Array, required: false, default: () => ([]) })
-  private readonly blocks!: IBlock[]
-
-  /**
    * Determines whether any item to render.
    */
   public get hasItems (): boolean {
@@ -76,18 +70,10 @@ export class BlockShelf extends Vue {
     event.dataTransfer.dropEffect = 'move'
     event.dataTransfer.effectAllowed = 'move'
 
-    let order
-
-    if (!this.blocks.length) {
-      order = 0
-    } else {
-      order = this.blocks[this.blocks.length - 1].order + 1
-    }
-
     const newBlock: IBlock = {
       id: uuid(),
-      title: (order + 1).toString(),
-      order,
+      title: type,
+      order: 1,
       content: {},
       size,
       type
