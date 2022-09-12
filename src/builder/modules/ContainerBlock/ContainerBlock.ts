@@ -21,7 +21,7 @@ import { AnyObject } from '@/builder'
 
       <div v-else />
     
-    <button v-if="!selected" @click="markAsSelected"> Edit </button>
+    <button v-if="!selected" class="ContainerBlock__action" @click="markAsSelected"> Edit </button>
     </div>
   `
 })

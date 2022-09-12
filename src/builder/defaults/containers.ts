@@ -2,7 +2,7 @@ import { VueConstructor } from 'vue'
 
 import { WithContent, WithId, WithOrder, WithSize, WithType } from '@/builder'
 import { FlexContainerForm } from '@/builder/blocks/Container'
-import { BlockShelfItemsRegistry, ShelfItem } from '@/builder/BlockShelf'
+import { BlockShelfItemsRegistry } from '@/builder/BlockShelf'
 import { flexContainerConfig } from '@/builder/blocks/Container/FlexContainer.config'
 
 /**
