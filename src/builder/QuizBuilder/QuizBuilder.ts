@@ -1,11 +1,12 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
+import _ from 'lodash'
 
 import { availableElements, PossibleElements } from '../defaults'
 import { BlockShelf, BlockShelfItemsRegistry } from '../BlockShelf'
 import { BlockEditor } from '../BlockEditor/BlockEditor'
 import { Constructor, IBlock, Renderer, Toolbar } from '../modules'
 import { QuizBuilderMode } from './QuizBuilder.contracts'
-import { availbaleContainers, PossibleContainer } from '@/builder/defaults/containers'
+import { availableContainers, PossibleContainer } from '@/builder/defaults/containers'
 
 @Component<QuizBuilder>({
   name: 'QuizBuilder',
@@ -35,7 +36,7 @@ import { availbaleContainers, PossibleContainer } from '@/builder/defaults/conta
 
         <!-- Constructor / Renderer of quizzes -->
         <Constructor v-show="activeMode === mode.Edit" :blocks.sync="qblocks" :containers.sync="qContainers" />
-        <Renderer v-show="activeMode === mode.View" :blocks.sync="qblocks" :containers.sync="containers" />
+        <Renderer v-show="activeMode === mode.View" :blocks.sync="qblocks" :containers.sync="qContainers" />
       </div>
 
       <!-- Editor of block -->
@@ -77,8 +78,12 @@ export class QuizBuilder extends Vue {
 
   public get containersCollection (): BlockShelfItemsRegistry<PossibleContainer> {
     return {
-      ...availbaleContainers
+      ...availableContainers
     }
+  }
+
+  public get allBlocks (): IBlock[] {
+    return _.merge(this.qblocks, this.qContainers)
   }
 
   public get quizCount (): number {
@@ -96,11 +101,7 @@ export class QuizBuilder extends Vue {
    * Determines if there selected block in blocks.
    */
   public get hasSelectedBlock (): boolean {
-    return this.qblocks.some((block: IBlock) => block.selected)
-  }
-
-  public get hasSelectedContainer (): boolean {
-    return this.qContainers.some((block: IBlock) => block.selected)
+    return this.allBlocks.some((block: IBlock) => block.selected)
   }
 
   /**
@@ -111,18 +112,7 @@ export class QuizBuilder extends Vue {
       return
     }
 
-    return this.qblocks.filter((block: IBlock) => block.selected)[0]
-  }
-
-  /**
-   * Determines selected block.
-   */
-  public get selectedContainer (): IBlock | undefined {
-    if (!this.hasSelectedBlock) {
-      return
-    }
-
-    return this.qContainers.filter((container: IBlock) => container.selected)[0]
+    return this.allBlocks.filter((block: IBlock) => block.selected)[0]
   }
 
   /**

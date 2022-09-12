@@ -10,15 +10,16 @@ import { FlexContainer } from './FlexContainer.contracts'
 @Component({
   name: 'FlexContainerForm',
   template: `
-    <component :is="_tag">
-      This is tag: {{ _tag }}
+    <component :is="tag">
+      This is tag: {{ tag }}
     </component>
   `
 })
 export class FlexContainerForm extends AbstractBlockForm<FlexContainer> {
-  @PropSync('tag', { type: String, required: false, default: 'div' })
-  public _tag!: string
 
+  public get tag (): string {
+    return this._formData.tag
+  }
   /**
    * @override
    */

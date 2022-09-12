@@ -10,7 +10,8 @@ import { AnyObject } from '@/builder'
   name: 'ContainerBlock',
   components: { Block },
   template: `
-    <div class="ContainerBlock" :style="size" :id="_container.id" @drop="onDrop" @click="markAsSelected" @dragstart="onContainerDrag" container="true">
+    <div class="ContainerBlock" :style="size" :id="_container.id" :class="{ '--selected': selected }"
+         @drop="onDrop" @dragstart="onContainerDrag" container="true">
       <div v-if="_container && _container.content.children.length > 0" class="ContainerBlock__children">
         <Block v-for="(block, index) in containerElements" :key="block.id" @markAsSelected="selectChild(block.id)"
                :title="block.title" :order="block.order" :selected="block.selected" :blockSize="block.size"
@@ -19,6 +20,8 @@ import { AnyObject } from '@/builder'
       </div>
 
       <div v-else />
+    
+    <button v-if="!selected" @click="markAsSelected"> Edit </button>
     </div>
   `
 })
@@ -77,6 +80,7 @@ export class ContainerBlock extends Vue {
   }
 
   public selectChild (id: string): void {
+    this.$emit('onChildSelect')
     this._blocks = this._blocks.map(block => {
       return {
         ...block,

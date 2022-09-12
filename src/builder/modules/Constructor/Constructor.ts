@@ -19,15 +19,15 @@ import { ContainerBlock } from '../ContainerBlock'
   template: `
     <div class="Pole" :class="[className]" :id="id"
          @drop="onDrop" @dragover.prevent>
-    
+
     <!-- Fallback value -->
     <h2 v-if="!_containers.length">
       Drag the elements from the shelf.
     </h2>
-    
+
     <ContainerBlock v-for="(container, index) in _containers" :key="container.id" :data-index="index"
                     :selected="container.selected" @update:container="onContainerUpdate" :container="container"
-                    @markAsSelected="markAsSelected" :blocks.sync="_blocks" @dragstart="(event) => startDrag(event)"
+                    @selectContainer="markAsSelected" @onChildSelect="onSelectChild" :blocks.sync="_blocks" @dragstart="(event) => startDrag(event)"
                     @removeChild="removeBlock" draggable="true" />
     </div>
   `
@@ -60,6 +60,13 @@ export class Constructor extends Vue {
    * @param id - ID of the block.
    */
   public markAsSelected (id: string): void {
+    this._blocks = this._blocks.map((block) => {
+      return {
+        ...block,
+        selected: false
+      }
+    })
+
     this._containers = this._containers.map(block => {
       return {
         ...block,
@@ -89,6 +96,10 @@ export class Constructor extends Vue {
       return
     }
 
+    const blockEl = event.target as Element
+
+    if (!blockEl) return
+
     // Expect new Block from shelf.
     // TODO: Make more strong condition to check.
     if (event.dataTransfer.getData('new-block') && event.dataTransfer.getData('new-block').length > 0) {
@@ -101,27 +112,32 @@ export class Constructor extends Vue {
             children: []
           }
         })
-
-        const blockEl = event.target as Element
-
-        console.log(blockEl)
-
-        if (!blockEl) return
-
-        if (!blockEl.closest('div[container=true]')) {
-          console.log('Could not find any closest elements with tag <div>')
-        }
-
-        const dragIndex = blockEl.closest('div[container=true]')!.getAttribute('data-index')
-        const startIndex = event.dataTransfer.getData('start-index')
-
-        console.log(dragIndex, startIndex)
-
-        this.swapContainers(Number(startIndex), Number(dragIndex))
-
-        blockEl.classList.remove('drag-over')
       }
     }
+
+    if (!blockEl.closest('div[container=true]')) {
+      console.log('Could not find any closest elements with tag <div>')
+      return
+    }
+
+    const dragIndex = blockEl.closest('div[container=true]')!.getAttribute('data-index')
+    const startIndex = event.dataTransfer.getData('start-index')
+
+    console.log(dragIndex, startIndex)
+
+    this.swapContainers(Number(startIndex), Number(dragIndex))
+
+    blockEl.classList.remove('drag-over')
+  }
+
+
+  public onSelectChild (): void {
+    this._containers = this._containers.map((container) => {
+      return {
+        ...container,
+        selected: false
+      }
+    })
   }
 
   public removeBlock (id: string): void {
@@ -175,11 +191,12 @@ export class Constructor extends Vue {
 
     const start = containersCopy[startIndex].order
     containersCopy[startIndex].order = containersCopy[draggedIndex].order
-    containersCopy[draggedIndex].order= start
+    containersCopy[draggedIndex].order = start
 
     this._containers = containersCopy.sort((a, b) => {
       return a.order - b.order
     })
   }
 }
+
 export default Constructor

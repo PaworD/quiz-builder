@@ -9,7 +9,7 @@ import { flexContainerConfig } from '@/builder/blocks/Container/FlexContainer.co
  * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
  */
 export enum PossibleContainer {
-  Flex = 'flex'
+  Flex = 'flex-container'
 }
 
 /**
@@ -41,6 +41,6 @@ export type BuildContainer<
 /**
  * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
  */
-export const availbaleContainers: BlockShelfItemsRegistry<PossibleContainer> = {
+export const availableContainers: BlockShelfItemsRegistry<PossibleContainer> = {
   [PossibleContainer.Flex]: flexContainerConfig()
 }

@@ -3,6 +3,8 @@ import { VueConstructor } from 'vue-class-component/dist/vue-class-component'
 
 import { blocksFormRegistry, PossibleElements } from '@/builder/defaults'
 import { IBlock } from '@/builder'
+import { containersRegistry } from '@/builder/defaults/containers'
+import _ from 'lodash'
 
 /**
  *
@@ -66,20 +68,30 @@ export class BlockEditor extends Vue {
   private readonly formRegistry!: Record<PossibleElements, VueConstructor>
 
   /**
+   * Registry of the forms
+   */
+  @Prop({ type: Object, required: false, default: () => containersRegistry })
+  private readonly containersRegistry!: Record<PossibleElements, VueConstructor>
+
+  /**
    * Synchronized block.
    */
   @PropSync('block', { type: Object, required: false, default: () => ({}) })
   public _block!: IBlock
 
+  private get _registry () {
+    return _.merge(this.formRegistry, this.containersRegistry)
+  }
+
   /**
    * Determines component to be rendered for editing selected `Block`
    */
   public get component (): VueConstructor {
-    if (!(this._block.type in this.formRegistry)) {
+    if (!(this._block.type in this._registry)) {
       console.error(`Could not find view for current Block! Got [${this._block.type}]`)
     }
 
-    return this.formRegistry[(this._block.type) as PossibleElements]
+    return this._registry[(this._block.type) as PossibleElements]
   }
 
   /**
