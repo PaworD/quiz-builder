@@ -43,9 +43,6 @@ import { DiagramIcon, EyeIcon, SaveIcon } from '@/builder/shared/icons'
   `
 })
 export class Toolbar extends Vue {
-  @Prop({ type: Number, required: true })
-  public readonly quizCount!: number
-
   @PropSync('activeMode', { type: Number, required: true })
   public _activeMode!: QuizBuilderMode
 

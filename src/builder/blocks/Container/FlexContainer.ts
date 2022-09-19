@@ -10,16 +10,15 @@ import { FlexContainer } from './FlexContainer.contracts'
 @Component({
   name: 'FlexContainerForm',
   template: `
-    <component :is="tag">
-      This is tag: {{ tag }}
-    </component>
+    <div>
+      <a-select v-model="_formData.tag" @change="onTagChange">
+        <a-select-option value="div">Div</a-select-option>
+        <a-select-option value="section">Section</a-select-option>
+      </a-select>
+    </div>
   `
 })
 export class FlexContainerForm extends AbstractBlockForm<FlexContainer> {
-
-  public get tag (): string {
-    return this._formData.tag
-  }
   /**
    * @override
    */
@@ -30,13 +29,10 @@ export class FlexContainerForm extends AbstractBlockForm<FlexContainer> {
     }
   }
 
-  /**
-   * @override
-   */
-  protected createInitialSize (): FlexContainer['size'] {
-    return {
-      cols: 12,
-      rows: 0
+  public onTagChange (newValue: string): void {
+    this._formData = {
+      ...this._formData,
+      tag: newValue
     }
   }
 }

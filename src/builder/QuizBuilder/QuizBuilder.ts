@@ -32,8 +32,8 @@ import { availableContainers, PossibleContainer } from '@/builder/defaults/conta
       <BlockShelf v-if="showBlockShelf" :itemsRegistry="blockCollection" :containersRegistry="containersCollection" />
       
       <div class="QuizBuilder__workspace__area">
-        <Toolbar :quizCount="quizCount" :activeMode.sync="activeMode" @onSave="handleOnSave" />
-
+        <Toolbar :activeMode.sync="activeMode" @onSave="handleOnSave" />
+        
         <!-- Constructor / Renderer of quizzes -->
         <Constructor v-show="activeMode === mode.Edit" :blocks.sync="qblocks" :containers.sync="qContainers" />
         <Renderer v-show="activeMode === mode.View" :blocks.sync="qblocks" :containers.sync="qContainers" />
@@ -83,11 +83,10 @@ export class QuizBuilder extends Vue {
   }
 
   public get allBlocks (): IBlock[] {
-    return _.merge(this.qblocks, this.qContainers)
-  }
-
-  public get quizCount (): number {
-    return this.qblocks.length
+    return _.values(_.merge(
+      _.keyBy(this.qblocks, 'id'),
+      _.keyBy(this.qContainers, 'id')
+    ));
   }
 
   /**

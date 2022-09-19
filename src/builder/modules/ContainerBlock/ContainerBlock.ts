@@ -1,4 +1,5 @@
 import { Component, Prop, PropSync, Vue } from 'vue-property-decorator'
+import _ from 'lodash'
 
 import { Block, IBlock } from '../Block'
 import { AnyObject } from '@/builder'
@@ -49,23 +50,11 @@ export class ContainerBlock extends Vue {
 
     for (const element of elements) {
       for (const block of bCopy) {
-        if (block.id === element.id) {
-          const indexOfFoundEl = bCopy.indexOf(block)
-          bCopy.splice(indexOfFoundEl, 1, block)
-
-          this._blocks = bCopy
-        }
+          this._blocks = _.map(bCopy, (_block) => {
+            return _block.id === element.id ? block : _block;
+          })
       }
     }
-
-    // for (const element of elements) {
-    //   for (const block of this._blocks) {
-    //     if (block.id === element.id) {
-    //       const indexOfFoundEl = this._blocks.indexOf(block)
-    //       this._blocks.splice(indexOfFoundEl, 1, block)
-    //     }
-    //   }
-    // }
   }
 
   public get size (): AnyObject {
@@ -114,7 +103,7 @@ export class ContainerBlock extends Vue {
     let dragStartIndex: string | null = blockEl.closest('div')!.getAttribute('data-index')
 
     if (!dragStartIndex) {
-      console.error('Cannot find any closest divs, resetting to first index...')
+      console.log('Cannot find any closest divs, resetting to first index...')
 
       dragStartIndex = '0'
     }

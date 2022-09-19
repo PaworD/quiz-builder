@@ -11,8 +11,10 @@ import { AnyObject, IBlock } from '@/builder'
   name: 'Renderer',
   template: `
     <div class="Renderer" :class="[rendererClasses.join(' ')]">
-    <component v-for="block in _blocks" :is="component(block.type)" :uiData.sync="block.content"
-               :type="block.type" :key="block.id" :style="size(block)" />
+    <component v-for="container in _containers" :key="container.id" :is="'div'" class="Renderer__renderer">
+      <component v-for="block in containerElements(container)" :is="component(block.type)" :uiData.sync="block.content"
+                 :type="block.type" :key="block.id" :style="size(block)" />
+    </component>
     </div>
   `
 })
@@ -37,6 +39,16 @@ export class Renderer extends Vue {
    */
   public component (type: string): VueConstructor {
     return this.uiRegistry[type as PossibleElements]
+  }
+
+  /**
+   * Determines the elements for container.
+   * @param container
+   */
+  public containerElements (container: IBlock): IBlock[] {
+    return this._blocks.filter((block) => {
+      return container.content.children.includes(block.id)
+    })
   }
 
   public size (block: IBlock): AnyObject {

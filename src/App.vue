@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <QuizBuilder :blocks="mockBlocks" :containers="[]" @onSave="onSave" />
+    <QuizBuilder :blocks="[]" :containers="[]" @onSave="onSave" />
   </div>
 </template>
 

@@ -1,6 +1,7 @@
 import { Component, Prop, PropSync, Vue } from 'vue-property-decorator'
 
 import { IBlock } from '@/builder'
+import _ from 'lodash'
 
 /**
  * Abstract block form that every `.form` component **HAS TO** extend.
@@ -25,21 +26,13 @@ export class AbstractBlockForm<Block extends IBlock> extends Vue {
    * @protected
    */
   protected boot (): void {
-    this._formData = { ...this.createInitialContent(), ...this._formData }
+    this._formData = _.merge(this.createInitialContent(), this._formData)
   }
 
   /**
    * Creates the initial content for quiz, so it can boot up with predefined data.
    */
   protected createInitialContent (): Block['content'] {
-    // Override
-    throw new Error('Method must be overridden!')
-  }
-
-  /**
-   * Creates the initial content for quiz, so it can boot up with predefined data.
-   */
-  protected createInitialSize (): Block['size'] {
     // Override
     throw new Error('Method must be overridden!')
   }

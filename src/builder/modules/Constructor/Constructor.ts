@@ -123,8 +123,6 @@ export class Constructor extends Vue {
     const dragIndex = blockEl.closest('div[container=true]')!.getAttribute('data-index')
     const startIndex = event.dataTransfer.getData('start-index')
 
-    console.log(dragIndex, startIndex)
-
     this.swapContainers(Number(startIndex), Number(dragIndex))
 
     blockEl.classList.remove('drag-over')
