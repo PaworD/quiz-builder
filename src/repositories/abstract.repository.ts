@@ -8,9 +8,18 @@ export abstract class Repository<T>  {
   /**
    * Composes the payload with current mapping structure.
    */
-  protected compose(payload: Record<string, unknown>): Promise<T> {
+  protected toMap(payload: Record<string, unknown>): Promise<T> {
     return new Promise((resolve, reject) => {
-      resolve(payload as T)
+      let mapped = payload
+
+      mapped = Object.entries(this.mappingStructure).reduce((acc, [mKey, oKey], index) => {
+        return {
+          ...acc,
+          [mKey]: payload[oKey as unknown as string]
+        }
+      }, {})
+
+      resolve(mapped as T)
     })
   }
 }

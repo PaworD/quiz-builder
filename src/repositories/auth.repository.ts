@@ -2,21 +2,17 @@ import { injectable } from 'inversify-props'
 
 import { User } from '../models'
 
-import { Repository } from './abstract.repository'
+import { userMappingStructure } from '../maps'
+import { IAuthRepository } from '../contracts'
 
-/**
- * @author Javlon Khalimjonov <khalimjanov2000@gmail.com>
- */
-export interface IAuthRepository<T> {
-  getUser (): Promise<T>
-}
+import { Repository } from './abstract.repository'
 
 /**
  * @author Javlon Khalimjonov <khalimjanov2000@gmail.com>
  */
 @injectable()
 export class AuthRepository extends Repository<User> implements IAuthRepository<User> {
-  protected mappingStructure = {}
+  protected mappingStructure = userMappingStructure
 
   /**
    * @inheritDoc
@@ -24,14 +20,9 @@ export class AuthRepository extends Repository<User> implements IAuthRepository<
   public getUser (): Promise<User> {
     const user = {
       name: 'John',
-      lastName: 'Doe'
+      last_name: 'Doe'
     }
 
-    return this.compose(user)
+    return this.toMap(user)
   }
 }
-
-/**
- * @author Javlon Khalimjonov <khalimjanov2000@gmail.com>
- */
-export const AuthRepositoryType = Symbol.for('AuthRepository')
