@@ -11,9 +11,13 @@ import { IBlock } from '@/builder'
   name: 'Renderer',
   template: `
     <div class="Renderer">
+    <form @submit.prevent="submit">
       <div :class="[listClassName]">
-        <component v-for="block in _blocks" :is="component(block.type)" :content.sync="block.content" :type="block.type" :key="block.id" />
+        <component v-for="block in _blocks" :is="component(block.type)" :content.sync="block.content"
+                   :type="block.type" :key="block.id" @reply="onReply" :identifier="block.id" />
       </div>
+      <button type="submit">Submit</button>
+    </form>
     </div>
   `
 })
@@ -30,12 +34,42 @@ export class Renderer extends Vue {
   @PropSync('blocks', { type: Array, required: true })
   public _blocks!: IBlock[]
 
+  protected replies: any[] = []
+
   /**
    * Determines the applicable component to quiz's type.
    * @param type - type of the quiz.
    */
   public component (type: string): VueConstructor {
     return this.uiRegistry[type as QuizType]
+  }
+
+  /**
+   * Handles reply event of `Blocks`
+   *
+   * @param reply - reply from quiz
+   */
+  public onReply (reply: any): void {
+    if (this.shouldReplace(reply)) {
+      const oldReplyIndex = this.replies.findIndex((r) => r.qId === reply.qId)
+      this.replies.splice(oldReplyIndex, 1, reply)
+      return
+    }
+
+    this.replies.push(reply)
+  }
+
+  public async submit (): Promise<void> {
+    console.log(this.replies)
+  }
+
+  /**
+   * Determines whether reply exists inside the replies array.
+   */
+  protected shouldReplace (reply: any): boolean {
+    return this.replies.some((existingReply) => {
+      return existingReply.qId === reply.qId
+    })
   }
 }
 export default Renderer

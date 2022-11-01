@@ -1,11 +1,11 @@
-import { Component } from 'vue-property-decorator'
+import { Component, Watch } from 'vue-property-decorator'
 
 import { AbstractBlockUi } from '@/builder/_abstract'
 
 import { MultipleChoiceQuiz } from './MultipleChoice.block.contracts'
 
 /**
- * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
+ * @author Javlon Khalimjonov <khlalimjanov2000@gmail.com>
  */
 @Component<MultipleChoiceBlockUi>({
   name: 'MultipleChoiceBlockUi',
@@ -13,11 +13,21 @@ import { MultipleChoiceQuiz } from './MultipleChoice.block.contracts'
     <div>
       <p> {{ _content.question }} </p>
       <div v-for="variant in _content.variants" :key="variant">
-        <input type="checkbox" :name="variant">
+        <input type="checkbox" :name="variant" :value="variant" v-model="reply" required>
         <label :for="variant">{{ variant }}</label>
       </div>
     </div>
   `
 })
-export class MultipleChoiceBlockUi extends AbstractBlockUi<MultipleChoiceQuiz> {}
+export class MultipleChoiceBlockUi extends AbstractBlockUi<MultipleChoiceQuiz> {
+  /**
+   * @override
+   */
+  protected reply: string[] = []
+
+  @Watch('reply')
+  protected onReply (): void {
+    this.acceptReply(this.reply)
+  }
+}
 export default MultipleChoiceBlockUi

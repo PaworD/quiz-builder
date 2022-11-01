@@ -1,0 +1,27 @@
+$gap-values: (
+  '1': .4rem,
+  '2': .8rem
+);
+
+.d-flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-flow: column;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+@each $key, $value in $gap-values {
+  .gap-#{$key} {
+    gap: $value;
+  }
+}
+

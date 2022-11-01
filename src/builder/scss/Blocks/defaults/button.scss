@@ -1,0 +1,27 @@
+$secondary: #bababa;
+
+.QButton {
+  width: auto;
+  height: auto;
+
+  padding: .5rem 1rem;
+
+  outline: none;
+  border: none;
+
+  cursor: pointer;
+  background-color: $secondary;
+
+  transition: background-color .3s ease-in;
+
+  font-family: sans-serif;
+  letter-spacing: .03rem;
+
+  &:hover {
+    background-color: darken($secondary, 10%);
+  }
+
+  &__uppercase {
+    text-transform: uppercase;
+  }
+}

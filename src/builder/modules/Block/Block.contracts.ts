@@ -41,14 +41,14 @@ export interface BlockData {
 }
 
 /**
- * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
+ * @author Javlon Khalimjonov <khalimjanov2000@gmail.com>
  */
 export interface IBlock<Content extends AnyObject = AnyObject> extends BlockData {
   content: Content
 }
 
 /**
- * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
+ * @author Javlon Khalimjonov <khalimjanov2000@gmail.com>
  */
 export type Quiz<Content, Type> = (
   WithContent<Content> &

@@ -1,8 +1,10 @@
 @import "./BlockShelf";
 @import "./BlockEditor";
 @import "./QuizBuilder";
-@import "Blocks/defaults";
 @import "./modules";
+@import "./utils";
+
+@import "Blocks/defaults";
 
 // Reset to defaults.
 * {
@@ -26,3 +28,4 @@
 
   background: gray;
 }
+

@@ -5,26 +5,33 @@ import { AbstractBlockForm } from '../../_abstract/AbstractBlockForm'
 import { MultipleChoiceQuiz } from '../MultipleChoice'
 
 /**
- * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
+ * @author Javlon Khalimjonov <khalimjanov2000@gamilc.com>
  */
 @Component<MultipleChoiceBlockForm>({
   name: 'MultipleChoiceBlockForm',
   template: `
     <div>
-     <textarea class="QTextarea" v-model="_data.question" />
-    
-    <div>
-      <span>Variants</span>
-      <div v-if="hasVariants">
-        <div v-for="(variant, index) in _data.variants" :key="index">
-          {{ index }}
+
+    <h6 class="QHeading mb-1">Question</h6>
+    <textarea class="QTextarea" v-model="_data.question" />
+
+    <h6 class="QHeading mb-1 mt-1">Variants</h6>
+
+    <div v-if="hasVariants" class="d-flex flex-column gap-1">
+      <div v-for="(variant, index) in _data.variants" :key="index">
+        <div class="d-flex justify-content-center align-items-center">
+          <small class="ml-2">{{ index + 1 }}</small>
           <input class="QInput" type="text" v-model="_data.variants[index]" />
         </div>
       </div>
+    </div>
+
+    <div class="" v-else>
       
-      <div>
-        <button @click="addVariant" >Add Variant</button>
-      </div>
+    </div>
+
+    <div class="mt-1">
+      <button class="QButton" @click="addVariant">Add Variant</button>
     </div>
     </div>
   `
@@ -41,7 +48,7 @@ export class MultipleChoiceBlockForm extends AbstractBlockForm<MultipleChoiceQui
    * Handles adding new empty variant.
    */
   public addVariant (): void {
-    const variants = [ ...this._data.variants ]
+    const variants = [...this._data.variants]
 
     variants.push('')
 
@@ -64,4 +71,5 @@ export class MultipleChoiceBlockForm extends AbstractBlockForm<MultipleChoiceQui
     }
   }
 }
+
 export default MultipleChoiceBlockForm

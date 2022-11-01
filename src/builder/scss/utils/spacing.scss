@@ -1,0 +1,29 @@
+$spacing: (
+ '1': .4rem,
+ '2': .6rem,
+ '3': .8rem,
+);
+
+@each $level, $value in $spacing {
+  .mt-#{$level} {
+    margin-top: $value;
+  }
+}
+
+@each $level, $value in $spacing {
+  .mb-#{$level} {
+    margin-bottom: $value;
+  }
+}
+
+@each $level, $value in $spacing {
+  .ml-#{$level} {
+    margin-right: $value;
+  }
+}
+
+@each $level, $value in $spacing {
+  .mr-#{$level} {
+    margin-left: $value;
+  }
+}
