@@ -1,4 +1,14 @@
 import { injectable } from 'inversify-props'
+import {
+  collection,
+  addDoc,
+  getDocs,
+  getDoc,
+  deleteDoc,
+  updateDoc,
+  query,
+  doc } from 'firebase/firestore'
+import { getAuth } from 'firebase/auth'
 
 import { IQuizRepository } from '../contracts'
 import { QuizBlock } from '../models'
@@ -12,26 +22,97 @@ import { Repository } from './abstract.repository'
 export class QuizRepository extends Repository<QuizBlock> implements IQuizRepository<QuizBlock> {
   protected mappingStructure = {}
 
+  private user = getAuth().currentUser
+
   /**
    * @inheritDoc
    */
-  public loadOne (qId: string): Promise<QuizBlock> {
+  public async acceptAnswers (id: string, answers: any): Promise<void> {
+    try {
+     await addDoc(collection(this.db, `quiz-answers/${id}`), answers)
+    } catch (e) {
+      throw new Error(e)
+    }
+  }
 
-    const quiz = [
-      {
-        id: 'one',
-        type: 'multipleChoice',
-        title: '1',
-        order: 0,
-        points: 2,
-        content: {
-          question: 'What do you call a computer on a network that requests files from another computer?',
-          variants: ['computer', 'router', 'host'],
-          answer: 'A'
+  /**
+   * @inheritDoc
+   */
+  public async create (payload: QuizBlock): Promise<boolean> {
+    try {
+     await addDoc(collection(this.db, `users/${this.user?.uid}/quizes`), {
+       ...payload
+     })
+
+      return true
+    } catch (e) {
+      throw new Error(e)
+    }
+  }
+
+  public async delete (id: string): Promise<boolean> {
+    console.log(id)
+    const candidateDocumentReference = doc(this.db, `users/${this.user?.uid}/quizes/${id}`)
+    try {
+      const response = await deleteDoc(candidateDocumentReference)
+      return true
+    } catch (e) {
+      throw new Error(e)
+    }
+
+  }
+
+  /**
+   * @inheritDoc
+   */
+  public async loadOne (qId: string): Promise<QuizBlock | null> {
+    try {
+      const candidateDocumentReference = doc(this.db, `users/${this.user?.uid}/quizes/${qId}`)
+      const response = await getDoc(candidateDocumentReference)
+
+      return response.data() as QuizBlock
+    } catch (e) {
+      throw new Error(e)
+    }
+  }
+
+  /**
+   * @inheritDoc
+   */
+  public async load (): Promise<QuizBlock[]> {
+    const quizes: QuizBlock[] = []
+
+    const _query = query(collection(this.db, `users/${this.user?.uid}/quizes`))
+
+    try {
+      const response = await getDocs(_query)
+
+      response.forEach((doc) => {
+        const result = doc.data()
+
+        if (result) {
+          quizes.push({
+            ...doc.data() as QuizBlock,
+            id: doc.id
+          })
         }
-      }
-    ]
+      });
 
-    return this.toMap(quiz)
+      return quizes
+    } catch (e) {
+      throw new Error('Error while fetching quizes')
+    }
+  }
+
+  /**
+   * @inheritDoc
+   */
+  public async update (id: string, payload: Partial<QuizBlock>): Promise<void> {
+    try {
+      const candidateDocumentReference = doc(this.db, `users/${this.user?.uid}/quizes/${id}`)
+      const response = await updateDoc(candidateDocumentReference, payload)
+    } catch (e) {
+      throw new Error(e)
+    }
   }
 }

@@ -11,10 +11,12 @@ import { MultipleChoiceQuiz } from './MultipleChoice.block.contracts'
   name: 'MultipleChoiceBlockUi',
   template: `
     <div>
-      <p> {{ _content.question }} </p>
+      <h3> {{ _content.question }} </h3>
       <div v-for="variant in _content.variants" :key="variant">
-        <input type="checkbox" :name="variant" :value="variant" v-model="reply" required>
-        <label :for="variant">{{ variant }}</label>
+        <label :for="variant">
+          <input type="checkbox" :name="variant" :value="variant" v-model="reply" :id="variant">
+          {{ variant }}
+        </label>
       </div>
     </div>
   `

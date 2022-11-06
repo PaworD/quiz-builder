@@ -1,0 +1,23 @@
+.ant-layout {
+  height: 100vh;
+  background-color: transparent !important;
+
+  .ant-layout-header {
+    background-color: #fafafa;
+    height: 3rem;
+    line-height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .ant-layout-content {
+    padding: 25px 50px;
+  }
+
+  .ant-layout-sider {
+    .ant-menu {
+      height: 100%;
+    }
+  }
+}

@@ -1,27 +1,31 @@
 <template>
-  <div>
-    <a-row type="flex" justify="center">
-      <a-col :span="6">
-        <a-form layout="vertical" @submit.prevent="submit">
-          <a-form-item>
-            <a-input placeholder="Username">
-              <a-icon slot="prefix" type="user" />
-            </a-input>
-          </a-form-item>
-          <a-form-item>
-            <a-input type="password" placeholder="Password">
-              <a-icon slot="prefix" type="lock" />
-            </a-input>
-          </a-form-item>
-          <a-form-item>
-            <a-button type="secondary" html-type="submit">
-              Log in
-            </a-button>
-          </a-form-item>
-        </a-form>
-      </a-col>
-    </a-row>
-  </div>
+  <a-form id="auth-form" class="login-form" @submit.prevent="submit">
+    <a-form-item>
+      <a-input type="email" placeholder="Email" v-model="email">
+        <a-icon slot="prefix" type="user" style="color: rgba(0,0,0,.25)" />
+      </a-input>
+    </a-form-item>
+    <a-form-item>
+      <a-input type="password" placeholder="Password" v-model="password">
+        <a-icon slot="prefix" type="lock" style="color: rgba(0,0,0,.25)" />
+      </a-input>
+    </a-form-item>
+    <a-form-item>
+      <a-checkbox>
+        Remember me
+      </a-checkbox>
+      <a class="login-form-forgot" href="">
+        Forgot password
+      </a>
+      <a-button type="primary" html-type="submit" class="login-form-button">
+        Log in
+      </a-button>
+      Or
+      <a href="">
+        register now!
+      </a>
+    </a-form-item>
+  </a-form>
 </template>
 
 <script lang="ts">
@@ -40,13 +44,20 @@ export class Auth extends Vue {
   @inject(AuthRepositoryType)
   protected readonly authRepository!: IAuthRepository<User>
 
+  public email = ''
+  public password = ''
+
   /**
    * Submits the form.
    */
   public async submit (): Promise<void> {
-    const user = await this.authRepository.getUser()
-
-    this.$store.commit('setUser', user)
+    try {
+      await this.authRepository.login(this.email, this.password)
+      this.$store.commit('SET_LOGGED_IN', true)
+      this.$router.push({ name: 'dashboard' })
+    } catch (e) {
+      console.log(e)
+    }
   }
 }
 

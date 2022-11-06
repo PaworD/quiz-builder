@@ -1,32 +1,41 @@
 <template>
   <div class="app">
-    <Dashboard v-if="isAuth" />
+    <router-view v-if="isLogged" />
     <Auth v-else />
+    <FullscreenLoader v-if="isLoading" />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Mixins, Vue } from 'vue-property-decorator'
 
-import Auth from './views/Auth.vue'
-import Dashboard from './views/Dashboard.vue'
+import FullscreenLoader from './components/FullscreenLoader.vue'
+import { AuthMixin } from './mixins/AuthMixin'
+
+import { Auth } from './views/Auth.vue'
+import { Dashboard } from './views/Dashboard.vue'
 
 /**
  * @author Javlon Khalimjonov <khalimjanov2000@gmail.com>
  */
-@Component({ name: 'App', components: { Dashboard, Auth }})
-export class App extends Vue {
-
-  public get isAuth (): boolean {
-    return this.$store.getters.isAuth
+@Component<App>({
+  name: 'App',
+  components: { Dashboard, Auth, FullscreenLoader },
+  mounted (): void {
+    this.isLoading = true
+    this.authRepository.authorize().then(value => {
+      this.$store.commit('SET_LOGGED_IN', value)
+    }).finally(() => this.isLoading = false)
   }
-
+})
+export class App extends Mixins<AuthMixin>(AuthMixin) {
+  protected isLoading = false
 }
 export default App
 </script>
 
 <style lang="scss">
  .app {
-   height: 100vh;
+   height: auto;
  }
 </style>

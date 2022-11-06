@@ -2,6 +2,8 @@ import { Component } from 'vue-property-decorator'
 
 import { AbstractBlockForm } from '../../_abstract/AbstractBlockForm'
 
+import { VariantBox } from '../../shared/components/VariantBox'
+
 import { MultipleChoiceQuiz } from '../MultipleChoice'
 
 /**
@@ -9,20 +11,24 @@ import { MultipleChoiceQuiz } from '../MultipleChoice'
  */
 @Component<MultipleChoiceBlockForm>({
   name: 'MultipleChoiceBlockForm',
+  components: { VariantBox },
   template: `
     <div>
 
     <h6 class="QHeading mb-1">Question</h6>
     <textarea class="QTextarea" v-model="_data.question" />
 
-    <h6 class="QHeading mb-1 mt-1">Variants</h6>
+    <h6 class="QHeading mb-4 mt-2">Variants</h6>
 
-    <div v-if="hasVariants" class="d-flex flex-column gap-1">
+    <div v-if="hasVariants" class="d-flex flex-column gap-4">
       <div v-for="(variant, index) in _data.variants" :key="index">
-        <div class="d-flex justify-content-center align-items-center">
-          <small class="ml-2">{{ index + 1 }}</small>
-          <input class="QInput" type="text" v-model="_data.variants[index]" />
-        </div>
+        <VariantBox :index="index" :model.sync="_data.answer" @remove="onRemove">
+          <template #default>
+            <div class="d-flex justify-content-center align-items-center">
+              <input class="QInput" type="text" v-model="_data.variants[index]" />
+            </div>
+          </template>
+        </VariantBox>
       </div>
     </div>
 
@@ -51,6 +57,19 @@ export class MultipleChoiceBlockForm extends AbstractBlockForm<MultipleChoiceQui
     const variants = [...this._data.variants]
 
     variants.push('')
+
+    this._data = {
+      ...this._data,
+      variants: [
+        ...variants
+      ]
+    }
+  }
+
+  public onRemove (index: number): void {
+    const variants = [...this._data.variants]
+
+    variants.splice(index, 1)
 
     this._data = {
       ...this._data,

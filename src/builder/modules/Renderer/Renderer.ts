@@ -16,7 +16,7 @@ import { IBlock } from '@/builder'
         <component v-for="block in _blocks" :is="component(block.type)" :content.sync="block.content"
                    :type="block.type" :key="block.id" @reply="onReply" :identifier="block.id" />
       </div>
-      <button type="submit">Submit</button>
+      <slot name="submit" v-bind="{ submit }" />
     </form>
     </div>
   `
@@ -60,7 +60,7 @@ export class Renderer extends Vue {
   }
 
   public async submit (): Promise<void> {
-    console.log(this.replies)
+    this.$emit('onSubmit', this.replies)
   }
 
   /**

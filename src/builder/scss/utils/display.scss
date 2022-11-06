@@ -1,6 +1,8 @@
 $gap-values: (
   '1': .4rem,
-  '2': .8rem
+  '2': .8rem,
+  '3': .1rem,
+  '4': 1.2rem
 );
 
 .d-flex {
@@ -13,6 +15,10 @@ $gap-values: (
 
 .justify-content-center {
   justify-content: center;
+}
+
+.justify-content-between {
+  justify-content: space-between;
 }
 
 .align-items-center {

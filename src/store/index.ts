@@ -3,16 +3,14 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
-  state: {
-    user: null
-  },
+export const store = new Vuex.Store({
+  state: { isLoggedIn: false },
   mutations: {
-    setUser (state, user) {
-      state.user = user
+    SET_LOGGED_IN (state, value) {
+      state.isLoggedIn = value
     }
   },
   getters: {
-    isAuth: (state) => !!state.user
+    isLoggedIn: state => state.isLoggedIn
   }
 })

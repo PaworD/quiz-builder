@@ -1,0 +1,34 @@
+.Viewer {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  flex-flow: column;
+
+  padding: 2rem 0;
+
+  &__renderer {
+    width: 100%;
+    max-width: 50rem;
+
+    padding: 0 5rem;
+  }
+
+  .CandidateBox {
+    margin: 1rem 0;
+  }
+
+  .timer-bar {
+    position: absolute;
+
+    width: 100%;
+    height: 15px;
+
+    background-color: #FF4081;
+
+    top: 0;
+  }
+}

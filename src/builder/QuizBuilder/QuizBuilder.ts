@@ -117,10 +117,5 @@ export class QuizBuilder extends Vue {
       return a.order - b.order
     })
   }
-
-  @Watch('blocks')
-  protected onBlock (): void {
-    this.buildBlocks()
-  }
 }
 export default QuizBuilder
