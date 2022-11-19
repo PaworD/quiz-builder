@@ -3,7 +3,9 @@ import { injectable } from 'inversify-props'
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  browserSessionPersistence,
   getAuth,
+  signOut,
   User
 } from 'firebase/auth'
 
@@ -24,13 +26,16 @@ export class AuthRepository extends Repository<User> implements IAuthRepository<
 
   public async authorize (): Promise<boolean> {
     return new Promise((resolve) => {
-      getAuth().onAuthStateChanged((user) => {
-        if (user) {
-          this.saveUser(user)
-          resolve(true)
-        }
+      getAuth().setPersistence(browserSessionPersistence).then(() => {
+        getAuth().onAuthStateChanged((user) => {
+          console.log(user)
+          if (user) {
+            this.saveUser(user)
+            resolve(true)
+          }
 
-        resolve(false)
+          resolve(false)
+        })
       })
     })
   }
@@ -41,7 +46,7 @@ export class AuthRepository extends Repository<User> implements IAuthRepository<
 
       this.saveUser(user.user)
     } catch (e) {
-      console.log(e)
+      throw new Error(e)
     }
   }
 
@@ -50,6 +55,17 @@ export class AuthRepository extends Repository<User> implements IAuthRepository<
       const user = await createUserWithEmailAndPassword(this.auth, email, password)
 
       this.saveUser(user.user)
+    } catch (e) {
+      throw new Error(e)
+    }
+  }
+
+  /**
+   * @inheritDoc
+   */
+  public async signOut (): Promise<void> {
+    try {
+      await signOut(this.auth)
     } catch (e) {
       throw new Error(e)
     }

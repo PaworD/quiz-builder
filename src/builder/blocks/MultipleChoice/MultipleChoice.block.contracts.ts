@@ -2,9 +2,14 @@ import { HasAnswer, Quiz } from '@/builder'
 import { QuizType } from '@/builder/defaults'
 
 /**
- * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
+ * @author Javlon Khalimjonov <khalimjanov2000@gmail.com>
  */
-export interface MultipleChoiceQuizData extends HasAnswer{
+export type MultipleChoiceAnswerType = string[]
+
+/**
+ * @author Javlon Khalimjonov <khalimjanov2000@gmail.com>
+ */
+export interface MultipleChoiceQuizData extends HasAnswer<MultipleChoiceAnswerType> {
   /**
    * Determines the question statement.
    */
@@ -17,6 +22,6 @@ export interface MultipleChoiceQuizData extends HasAnswer{
 }
 
 /**
- * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
+ * @author Javlon Khalimjonov <khalimjanov2000@gmail.com>
  */
 export type MultipleChoiceQuiz = Quiz<MultipleChoiceQuizData, QuizType.MultipleChoice>

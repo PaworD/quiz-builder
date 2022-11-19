@@ -40,6 +40,9 @@
                     <a-menu-item key="1" style="color: mediumseagreen">
                       <a-icon type="copy" /> Copy link
                     </a-menu-item>
+                    <a-menu-item key="4" style="color: darkkhaki">
+                      <a-icon type="eye" /> Results
+                    </a-menu-item>
                     <a-menu-item key="2">
                       <a-icon type="edit" />Edit
                     </a-menu-item>
@@ -55,6 +58,8 @@
         </a-col>
       </a-row>
     </div>
+
+    <a-empty v-else />
 
     <CreateQuizModal :visible.sync="isCreatingQuiz" @created="loadQuizes" />
   </div>
@@ -141,6 +146,9 @@ export class QuizTable extends Vue {
           break
         case '3':
           await this.deleteQuiz(id)
+          break
+        case '4':
+          this.$router.push({ name: 'quizresults', params: { id } })
           break
       }
     }

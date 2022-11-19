@@ -13,14 +13,13 @@ import FullscreenLoader from './components/FullscreenLoader.vue'
 import { AuthMixin } from './mixins/AuthMixin'
 
 import { Auth } from './views/Auth.vue'
-import { Dashboard } from './views/Dashboard.vue'
 
 /**
  * @author Javlon Khalimjonov <khalimjanov2000@gmail.com>
  */
 @Component<App>({
   name: 'App',
-  components: { Dashboard, Auth, FullscreenLoader },
+  components: { Auth, FullscreenLoader },
   mounted (): void {
     this.isLoading = true
     this.authRepository.authorize().then(value => {

@@ -86,7 +86,7 @@ export class MultipleChoiceBlockForm extends AbstractBlockForm<MultipleChoiceQui
     return {
       question: '',
       variants: [],
-      answer: ''
+      answer: []
     }
   }
 }

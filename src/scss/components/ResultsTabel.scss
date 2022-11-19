@@ -1,0 +1,26 @@
+.ResultsTable {
+  &-wrapper {
+
+  }
+
+  &__heading {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    margin: 1rem 0;
+
+    gap: 1rem;
+
+    button {
+      border: none;
+    }
+
+    h2 {
+      margin: 0;
+
+      font-weight: 600;
+      letter-spacing: .03rem;
+    }
+  }
+}

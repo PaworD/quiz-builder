@@ -3,7 +3,7 @@ import { Component, Prop, PropSync, Vue } from 'vue-property-decorator'
 import { IBlock } from '@/builder'
 
 /**
- * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
+ * @author Javlon Khalimjonov <khalimjanov2000@gmail.com>
  */
 @Component<AbstractBlockUi<IBlock>>({
   name: 'AbstractBlockUi'
@@ -18,6 +18,9 @@ export class AbstractBlockUi<Block extends IBlock> extends Vue {
   @Prop({ type: String, required: false })
   public readonly type?: Block['type']
 
+  @Prop({ type: Number, required: true })
+  public readonly order!: Block['order']
+
   /**
    * **HAS TO** be overridden in subclass.
    */
@@ -29,7 +32,9 @@ export class AbstractBlockUi<Block extends IBlock> extends Vue {
   protected acceptReply (reply: any) {
     this.$emit('reply', {
       qId: this.identifier,
+      qOrder: this.order + 1,
       type: this.type,
+      answer: this._content.answer,
       reply
     })
   }

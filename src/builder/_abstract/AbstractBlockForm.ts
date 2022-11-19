@@ -5,7 +5,7 @@ import { IBlock } from '@/builder'
 /**
  * Abstract block form that every `.form` component **HAS TO** extend.
  *
- * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
+ * @author Javlon Khalimjonov <khalimjanov2000@gmail.com>
  */
 @Component<AbstractBlockForm<IBlock>>({
   name: 'AbstractBlockForm',

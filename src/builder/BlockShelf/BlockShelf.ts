@@ -6,7 +6,7 @@ import { IBlock } from '@/builder'
 import { BlockShelfItemsRegistry } from './BlockShelf.contracts'
 
 /**
- * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
+ * @author Javlon Khalimjonov <khalimjanov2000@gmail.com>
  */
 @Component({
   name: 'BlockShelf',

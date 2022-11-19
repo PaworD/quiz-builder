@@ -5,6 +5,7 @@ import Auth from '../views/Auth.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Quiz from '../views/Quiz.vue'
 import Viewer from '../views/Viewer.vue'
+import QuizResults from '../views/QuizResults.vue'
 import QuizTable from '@/components/QuizTable.vue'
 
 Vue.use(Router)
@@ -20,6 +21,11 @@ export const router = new Router({
           path: '/quizes',
           component: QuizTable,
           name: 'quiztable'
+        },
+        {
+          path: '/quizes/:id/results',
+          component: QuizResults,
+          name: 'quizresults'
         }
       ],
       meta: {
@@ -56,6 +62,7 @@ export const router = new Router({
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.auth)) {
     if (localStorage.getItem('token')) {
+      if (to.name === 'dashboard') next({ name: 'quiztable' })
       next()
     } else {
       next({ name: 'auth' })

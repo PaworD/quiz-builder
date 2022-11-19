@@ -4,7 +4,7 @@ import { QuizBuilderMode } from '@/builder/QuizBuilder'
 import { DiagramIcon, EyeIcon, SaveIcon } from '@/builder/shared/icons'
 
 /**
- * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
+ * @author Javlon Khalimjonov <khalimjanov2000@gmail.com>
  */
 @Component<Toolbar>({
   name: 'Toolbar',

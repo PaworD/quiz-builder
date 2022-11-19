@@ -5,7 +5,7 @@ import { blocksUiRegistry, QuizType } from '@/builder/defaults'
 import { IBlock } from '@/builder'
 
 /**
- * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
+ * @author Javlon Khalimjonov <khalimjanov2000@gmail.com>
  */
 @Component({
   name: 'Renderer',
@@ -14,9 +14,9 @@ import { IBlock } from '@/builder'
     <form @submit.prevent="submit">
       <div :class="[listClassName]">
         <component v-for="block in _blocks" :is="component(block.type)" :content.sync="block.content"
-                   :type="block.type" :key="block.id" @reply="onReply" :identifier="block.id" />
+                   :type="block.type" :key="block.id" @reply="onReply" :identifier="block.id" :order.sync="block.order" />
       </div>
-      <slot name="submit" v-bind="{ submit }" />
+      <slot name="submit" v-bind="{ submit, replies }" />
     </form>
     </div>
   `
@@ -28,9 +28,15 @@ export class Renderer extends Vue {
   @Prop({ type: Object, required: false, default: () => blocksUiRegistry })
   private readonly uiRegistry!: Record<QuizType, VueConstructor>
 
+  /**
+   * Additional classes that might be added to renderer.
+   */
   @Prop({ type: String, required: false, default: '' })
   public readonly listClassName?: string
 
+  /**
+   * UiBlocks to be rendered.
+   */
   @PropSync('blocks', { type: Array, required: true })
   public _blocks!: IBlock[]
 

@@ -18,6 +18,22 @@
   .ant-layout-sider {
     .ant-menu {
       height: 100%;
+
+      &-item {
+        padding: 0 !important;
+
+        &-selected::after {
+          display: none;
+        }
+      }
+
+      .router-link-active {
+        color: #1890ff;
+        background-color: #e6f7ff;
+
+        width: 100%;
+        padding-left: 24px;
+      }
     }
   }
 }

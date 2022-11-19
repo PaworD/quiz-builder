@@ -1,6 +1,7 @@
 <template>
   <a-layout-header>
     <div v-if="user">
+      <span> {{ user.email }} </span>
       <a-avatar :size="24" icon="user" />
     </div>
   </a-layout-header>

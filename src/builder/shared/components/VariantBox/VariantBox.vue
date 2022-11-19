@@ -6,7 +6,7 @@
     <div class="d-flex justify-content-between mt-2">
       <div>
         <label :for="`answer-${index}`">
-          <input type="radio" :name="`answer-${index}`" :id="`answer-${index}`"
+          <input type="checkbox" :name="`answer-${index}`" :id="`answer-${index}`"
                  :value="index" v-model="_model">
           Mark as answer
         </label>

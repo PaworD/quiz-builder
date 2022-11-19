@@ -27,17 +27,6 @@ export class QuizRepository extends Repository<QuizBlock> implements IQuizReposi
   /**
    * @inheritDoc
    */
-  public async acceptAnswers (id: string, answers: any): Promise<void> {
-    try {
-     await addDoc(collection(this.db, `quiz-answers/${id}`), answers)
-    } catch (e) {
-      throw new Error(e)
-    }
-  }
-
-  /**
-   * @inheritDoc
-   */
   public async create (payload: QuizBlock): Promise<boolean> {
     try {
      await addDoc(collection(this.db, `users/${this.user?.uid}/quizes`), {
@@ -50,8 +39,10 @@ export class QuizRepository extends Repository<QuizBlock> implements IQuizReposi
     }
   }
 
+  /**
+   * @inheritDoc
+   */
   public async delete (id: string): Promise<boolean> {
-    console.log(id)
     const candidateDocumentReference = doc(this.db, `users/${this.user?.uid}/quizes/${id}`)
     try {
       const response = await deleteDoc(candidateDocumentReference)

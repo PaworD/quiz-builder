@@ -1,6 +1,6 @@
 
 /**
- * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
+ * @author Javlon Khalimjonov <khalimjanov2000@gmail.com>
  */
 export enum QuizBuilderMode {
   Edit,

@@ -26,7 +26,7 @@ export const blocksUiRegistry: Record<QuizType, VueConstructor> = {
 }
 
 /**
- * @author Javlon Khalimjonov <javlon.khalimjonov@movecloser.pl>
+ * @author Javlon Khalimjonov <khalimjanov2000@gmail.com>
  */
 export const availableBlocks: BlockShelfItemsRegistry = {
   [QuizType.MultipleChoice]: {

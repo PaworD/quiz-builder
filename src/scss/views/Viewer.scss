@@ -19,6 +19,18 @@
 
   .CandidateBox {
     margin: 1rem 0;
+
+    &__input {
+      display: flex;
+      flex-flow: column;
+
+      gap: .5rem;
+
+      small {
+        color: red;
+        font-size: 14px;
+      }
+    }
   }
 
   .timer-bar {
