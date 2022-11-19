@@ -23,6 +23,10 @@
   &__login {
     width: 340px;
 
+    display: flex;
+    gap: 1rem;
+    flex-flow: column;
+
     form {
       display: flex;
       flex-flow: column;

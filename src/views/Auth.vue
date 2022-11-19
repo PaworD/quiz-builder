@@ -1,16 +1,5 @@
 <template>
   <div class="Auth-wrapper">
-    <a-row v-if="error">
-      <a-col :xl="24">
-        <a-alert
-          message="Something went wrong!"
-          :description="error"
-          type="error"
-          closable
-        />
-      </a-col>
-    </a-row>
-
     <a-row>
       <a-col>
         <h2 class="Auth__lead" >Quiz Builder 1.0v </h2>
@@ -20,6 +9,12 @@
     <a-row>
       <a-col :xl="24">
         <div class="Auth__login">
+          <a-alert v-if="error"
+            message="Something went wrong!"
+            :description="error"
+            type="error"
+            closable
+          />
           <form @submit.prevent="submit">
             <a-input type="email" placeholder="Email" v-model="email" required>
               <a-icon slot="prefix" type="user" style="color: rgba(0,0,0,.25)" />
