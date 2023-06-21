@@ -25,7 +25,7 @@ import { ContainerBlock } from '../ContainerBlock'
       Drag the elements from the shelf.
     </h2>
 
-    <ContainerBlock v-for="(container, index) in _containers" :key="container.id" :data-index="index"
+    <ContainerBlock v-for="(container, index) in _containers" :key="container.id" :data-container-index="index"
                     :selected="container.selected" @update:container="onContainerUpdate" :container="container"
                     @selectContainer="markAsSelected" @onChildSelect="onSelectChild" :blocks.sync="_blocks" @dragstart="(event) => startDrag(event)"
                     @removeChild="removeBlock" draggable="true" />
@@ -112,20 +112,20 @@ export class Constructor extends Vue {
             children: []
           }
         })
+
+        if (!blockEl.closest('div[container=true]')) {
+          console.log('Could not find any closest elements with tag <div>')
+          return
+        }
+
+        const dragIndex = blockEl.closest('div[container=true]')!.getAttribute('data-container-index')
+        const startIndex = event.dataTransfer.getData('start-container-index')
+
+        this.swapContainers(Number(startIndex), Number(dragIndex))
+
+        blockEl.classList.remove('drag-over')
       }
     }
-
-    if (!blockEl.closest('div[container=true]')) {
-      console.log('Could not find any closest elements with tag <div>')
-      return
-    }
-
-    const dragIndex = blockEl.closest('div[container=true]')!.getAttribute('data-index')
-    const startIndex = event.dataTransfer.getData('start-index')
-
-    this.swapContainers(Number(startIndex), Number(dragIndex))
-
-    blockEl.classList.remove('drag-over')
   }
 
 
@@ -165,7 +165,7 @@ export class Constructor extends Vue {
       console.log('Could not find any closest elements with tag <div>')
     }
 
-    let dragStartIndex: string | null = blockEl.closest('div[container=true]')!.getAttribute('data-index')
+    let dragStartIndex: string | null = blockEl.closest('div[container=true]')!.getAttribute('data-container-index')
 
     if (!dragStartIndex) {
       console.error('Cannot find any closest divs, resetting to first index...')
@@ -175,7 +175,7 @@ export class Constructor extends Vue {
 
     event.dataTransfer.dropEffect = 'move'
     event.dataTransfer.effectAllowed = 'move'
-    event.dataTransfer.setData('start-index', dragStartIndex)
+    event.dataTransfer.setData('start-container-index', dragStartIndex)
   }
 
   /**
@@ -187,9 +187,13 @@ export class Constructor extends Vue {
   private swapContainers (startIndex: number, draggedIndex: number): void {
     const containersCopy = [...this._containers]
 
+    console.log(startIndex, draggedIndex)
+
     const start = containersCopy[startIndex].order
     containersCopy[startIndex].order = containersCopy[draggedIndex].order
     containersCopy[draggedIndex].order = start
+
+    console.log(containersCopy)
 
     this._containers = containersCopy.sort((a, b) => {
       return a.order - b.order

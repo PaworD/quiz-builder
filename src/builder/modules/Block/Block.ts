@@ -21,7 +21,7 @@ import { AnyObject, BlockSize } from '@/builder'
     </div>
       <!-- Title -->
       <h4 v-if="hasTitle">
-        {{ title }}
+        {{ title }} {{ order }}
       </h4>
       <!-- End | Title -->
     </div>

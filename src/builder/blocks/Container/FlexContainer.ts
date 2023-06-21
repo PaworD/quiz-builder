@@ -1,4 +1,4 @@
-import { Component, PropSync } from 'vue-property-decorator'
+import { Component, PropSync, Watch } from 'vue-property-decorator'
 
 import { AbstractBlockForm } from '@/builder/_abstract'
 
@@ -11,10 +11,16 @@ import { FlexContainer } from './FlexContainer.contracts'
   name: 'FlexContainerForm',
   template: `
     <div>
-      <a-select v-model="_formData.tag" @change="onTagChange">
+    <div>
+      <a-select v-model="_formData.tag" @change="onTagChange" placeholder="Select container tag"  label="Select container tag">
         <a-select-option value="div">Div</a-select-option>
         <a-select-option value="section">Section</a-select-option>
       </a-select>
+    </div>
+      
+      <div>
+        <input v-model="_formData.background" placeholder="Color" />
+      </div>
     </div>
   `
 })
@@ -24,8 +30,9 @@ export class FlexContainerForm extends AbstractBlockForm<FlexContainer> {
    */
   protected createInitialContent (): FlexContainer['content'] {
     return {
-      tag: 'section',
-      children: []
+      background: '#000',
+      children: [],
+      tag: 'section'
     }
   }
 
@@ -34,6 +41,11 @@ export class FlexContainerForm extends AbstractBlockForm<FlexContainer> {
       ...this._formData,
       tag: newValue
     }
+  }
+
+  @Watch('_formData', { deep: true })
+  private onFormData (): void {
+    console.log(this._formData)
   }
 }
 export default FlexContainerForm

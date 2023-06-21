@@ -13,7 +13,7 @@ import { AnyObject } from '@/builder'
   template: `
     <div class="ContainerBlock" :style="size" :id="_container.id" :class="{ '--selected': selected }"
          @drop="onDrop" @dragstart="onContainerDrag" container="true">
-      <div v-if="_container && _container.content.children.length > 0" class="ContainerBlock__children">
+      <div v-if="_container && containerElements.length > 0" class="ContainerBlock__children">
         <Block v-for="(block, index) in containerElements" :key="block.id" @markAsSelected="selectChild(block.id)"
                :title="block.title" :order="block.order" :selected="block.selected" :blockSize="block.size"
                :id="block.id" draggable="true" @dragstart="(event) => onDragStart(event, block.id)" :data-index="index"
@@ -39,6 +39,9 @@ export class ContainerBlock extends Vue {
   public readonly selected?: boolean
 
   public get containerElements (): IBlock[] {
+    if (!this._container.content.children) {
+      return []
+    }
     return this._blocks.filter((block) => {
       return this._container.content.children.includes(block.id)
     })
@@ -126,12 +129,14 @@ export class ContainerBlock extends Vue {
     if (event.dataTransfer.getData('new-block') && event.dataTransfer.getData('new-block').length > 0) {
       const block: IBlock = JSON.parse(event.dataTransfer.getData('new-block'))
 
-      block.order = this._container.content.children.length + 1 || 0
+      block.order = this._container.content.children ? this._container.content.children.length + 1 : 0
 
       if (!(block.type.includes('-container'))) {
         this._container.content.children.push(block.id)
 
         this._blocks.push(block)
+
+        this.selectChild(block.id)
 
         const blockEl = event.target as Element
 
@@ -156,7 +161,7 @@ export class ContainerBlock extends Vue {
   public removeBlock (id: string): void {
     const containerCopy = { ...this._container }
 
-    containerCopy.content.chilrdren = containerCopy.content.children.filter((child: IBlock) => {
+    containerCopy.content.children = containerCopy.content.children.filter((child: IBlock) => {
       return child.id !== id
     })
 

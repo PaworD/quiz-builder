@@ -7,14 +7,19 @@ import { IBlock } from '@/builder'
  */
 export interface FlexContainerData {
   /**
+   * Determines the background color of container.
+   */
+  background: string
+
+  /**
+   * Determines child elements of container.
+   */
+  children: IBlock[]
+
+  /**
    * Determines the tag of rendered element.
    */
   tag: string
-
-  /**
-   * Determines possible answer variants for given question
-   */
-  children: IBlock[]
 }
 
 /**

@@ -1,7 +1,7 @@
 import { Component, Prop, PropSync, Vue } from 'vue-property-decorator'
+import { cloneDeep, merge } from 'lodash'
 
 import { IBlock } from '@/builder'
-import _ from 'lodash'
 
 /**
  * Abstract block form that every `.form` component **HAS TO** extend.
@@ -10,7 +10,7 @@ import _ from 'lodash'
  */
 @Component<AbstractBlockForm<IBlock>>({
   name: 'AbstractBlockForm',
-  mounted (): void {
+  created (): void {
     this.boot()
   }
 })
@@ -26,7 +26,7 @@ export class AbstractBlockForm<Block extends IBlock> extends Vue {
    * @protected
    */
   protected boot (): void {
-    this._formData = _.merge(this.createInitialContent(), this._formData)
+    this._formData = cloneDeep(merge(this.createInitialContent(), this._formData))
   }
 
   /**
@@ -37,4 +37,5 @@ export class AbstractBlockForm<Block extends IBlock> extends Vue {
     throw new Error('Method must be overridden!')
   }
 }
+
 export default AbstractBlockForm

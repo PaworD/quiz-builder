@@ -40,7 +40,7 @@ import { availableContainers, PossibleContainer } from '@/builder/defaults/conta
       </div>
 
       <!-- Editor of block -->
-      <BlockEditor :block.sync="selectedBlock" />
+      <BlockEditor :block="selectedBlock" />
     </div>
   `
 })
@@ -83,10 +83,10 @@ export class QuizBuilder extends Vue {
   }
 
   public get allBlocks (): IBlock[] {
-    return _.values(_.merge(
-      _.keyBy(this.qblocks, 'id'),
-      _.keyBy(this.qContainers, 'id')
-    ));
+    return [
+      ...this.qContainers,
+      ...this.qblocks
+    ]
   }
 
   /**
